@@ -1,0 +1,29 @@
+####
+# F prime CMakeLists.txt:
+#
+# SOURCE_FILES: combined list of source and autocoding files
+# MOD_DEPS: (optional) module dependencies
+# UT_SOURCE_FILES: list of source files for unit tests
+#
+####
+set(SOURCE_FILES
+  "${CMAKE_CURRENT_LIST_DIR}/TelemetryManager.fpp"
+  "${CMAKE_CURRENT_LIST_DIR}/TelemetryManager.cpp"
+)
+
+# Uncomment and add any modules that this component depends on, else
+# they might not be available when cmake tries to build this component.
+
+# set(MOD_DEPS
+#     Add your dependencies here
+# )
+
+if(FPRIME_ARDUINO)
+    list(APPEND SOURCE_FILES "${CMAKE_CURRENT_LIST_DIR}/TelemetryManagerArduino.cpp")
+else()
+    list(APPEND SOURCE_FILES "${CMAKE_CURRENT_LIST_DIR}/TelemetryManagerLinux.cpp")
+endif()
+
+target_use_arduino_libraries("RadioHead")
+
+register_fprime_module()

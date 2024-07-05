@@ -38,7 +38,7 @@ module Fauro {
 
   instance rateGroup1: Svc.PassiveRateGroup base id 0x1000
 
-  instance commDriver: Arduino.StreamDriver base id 0x4000
+  instance commDriver: Components.TelemetryManager base id 0x4000
 
   instance framer: Svc.Framer base id 0x4100
 
