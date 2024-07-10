@@ -60,4 +60,6 @@ module Fauro {
 
   instance rateDriver: Arduino.HardwareRateDriver base id 0x4A00
 
+  instance fswManager: Components.FswManager base id 0x4B00
+
 }

@@ -35,6 +35,7 @@ module Fauro {
     instance textLogger
     instance timeHandler
     instance tlmSend
+    instance fswManager
 
     # ----------------------------------------------------------------------
     # Pattern graph specifiers
