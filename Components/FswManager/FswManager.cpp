@@ -111,6 +111,9 @@ namespace Components {
     uint32_t table_index = 0;
     uint32_t current_byte_count = 0;
 
+    //flash_size - offset - size of ending sequence (136 bytes)
+    //Start of 136 byte ending sequence assumed to be 14 bytes of 0xff followed
+    //by 2 of 0x00
     for (uint32_t i = offset;  i < 0x40000-0x2000-0x88; i ++) {
       table_index = (checksum ^ pgm_read_byte(i)) & 0xff;
       checksum = (checksum >> 8) ^ checksum_table[table_index];
