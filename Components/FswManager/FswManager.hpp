@@ -41,8 +41,6 @@ namespace Components {
           U32 cmdSeq //!< The command sequence number
       ) override;
 
-      uint32_t compute_image_checksum(uint32_t image_size);
-
   };
 
 }

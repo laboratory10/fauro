@@ -8,7 +8,10 @@ module Components {
 
         guarded command FSW_IMAGE_CRC()
 
-        event FSW_IMAGE_CRC_RESULT(checksum: U32) severity activity high format "FSW Image Checksum is 0x{x}"
+        event FSW_IMAGE_CRC_RESULT(
+                                    $size: U32 @< Size of the image in bytes
+                                    checksum: U32 @< Checksum value
+                                  ) severity activity high format "FSW Image is {} bytes and has a checksum of 0x{x}"
 
         # @ Example async command
         # async command COMMAND_NAME(param_name: U32)

@@ -104,27 +104,48 @@ namespace Components {
         U32 cmdSeq
     )
   {
-    uint32_t image_size = 1000;
-    uint32_t checksum_decimal = compute_image_checksum(image_size);
-    this->log_ACTIVITY_HI_FSW_IMAGE_CRC_RESULT(checksum_decimal);
-    this->cmdResponse_out(opCode, cmdSeq, Fw::CmdResponse::OK);
-  }
-
-  //Utilities
-  uint32_t FswManager :: compute_image_checksum(uint32_t image_size) {
     //When used with the checksum_table in this file...
     //this is equivalent to CRC32 used by windows and python's zlib
     uint32_t offset = 0x2000;
     uint32_t checksum = 0xffffffff;
     uint32_t table_index = 0;
+    uint32_t current_byte_count = 0;
 
-    for (uint32_t i = offset;  i < offset+image_size; i ++) {
+    for (uint32_t i = offset;  i < 0x40000-0x2000-0x88; i ++) {
       table_index = (checksum ^ pgm_read_byte(i)) & 0xff;
       checksum = (checksum >> 8) ^ checksum_table[table_index];
+      current_byte_count++;
+     //I realize this is ugly but it is reasonably efficient and easy to update
+     //since I'm not certain this is actually the best way to detect the end
+     //of the image in flash
+      if (pgm_read_byte(i) == 0xff &&
+          pgm_read_byte(i+1) == 0xff &&
+          pgm_read_byte(i+2) == 0xff &&
+          pgm_read_byte(i+3) == 0xff &&
+          pgm_read_byte(i+4) == 0xff &&
+          pgm_read_byte(i+5) == 0xff &&
+          pgm_read_byte(i+6) == 0xff &&
+          pgm_read_byte(i+7) == 0xff &&
+          pgm_read_byte(i+8) == 0xff &&
+          pgm_read_byte(i+9) == 0xff &&
+          pgm_read_byte(i+10) == 0xff &&
+          pgm_read_byte(i+11) == 0xff &&
+          pgm_read_byte(i+12) == 0xff &&
+          pgm_read_byte(i+13) == 0xff &&
+          pgm_read_byte(i+14) == 0x00 &&
+          pgm_read_byte(i+15) == 0x00) {
+        //ending image sequence detected
+        for (uint32_t j = i+1; j < i+136; j++) {
+          table_index = (checksum ^ pgm_read_byte(j)) & 0xff;
+          checksum = (checksum >> 8) ^ checksum_table[table_index];
+          current_byte_count++;
+        } 
+        break;
+      }
     }
-
     checksum ^= 0xffffffff;
-    return checksum;
+    this->log_ACTIVITY_HI_FSW_IMAGE_CRC_RESULT(current_byte_count, checksum);
+    this->cmdResponse_out(opCode, cmdSeq, Fw::CmdResponse::OK);
   }
 
 }
