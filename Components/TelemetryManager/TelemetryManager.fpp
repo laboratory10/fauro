@@ -6,6 +6,8 @@ module Components {
         #### Uncomment the following examples to start customizing your component ####
         ##############################################################################
 
+        ##TODO should any of these ports be guarded? see: https://nasa.github.io/fprime/UsersGuide/user/port-comp-top.html#a-quick-look-at-port-kinds-defined-in-a-components-usage
+        
         @ Polling for receiving data
         sync input port schedIn: Svc.Sched
 
