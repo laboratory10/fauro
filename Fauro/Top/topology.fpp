@@ -5,7 +5,8 @@ module Fauro {
   # ----------------------------------------------------------------------
 
     enum Ports_RateGroups {
-      rateGroup1
+      rateGroup5sec
+      rateGroup6Hz
     }
 
     enum Ports_StaticMemory {
@@ -28,7 +29,8 @@ module Fauro {
     instance fatalHandler
     instance framer
     instance rateDriver
-    instance rateGroup1
+    instance rateGroup5sec
+    instance rateGroup6Hz
     instance rateGroupDriver
     instance staticMemory
     instance systemResources
@@ -59,11 +61,13 @@ module Fauro {
       # Block driver
       rateDriver.CycleOut -> rateGroupDriver.CycleIn
 
-      # Rate group 1
-      rateGroupDriver.CycleOut[Ports_RateGroups.rateGroup1] -> rateGroup1.CycleIn
-      rateGroup1.RateGroupMemberOut[0] -> commDriver.schedIn
-      rateGroup1.RateGroupMemberOut[1] -> tlmSend.Run
-      rateGroup1.RateGroupMemberOut[2] -> systemResources.run
+      rateGroupDriver.CycleOut[Ports_RateGroups.rateGroup5sec] -> rateGroup5sec.CycleIn
+
+      rateGroupDriver.CycleOut[Ports_RateGroups.rateGroup6Hz] -> rateGroup6Hz.CycleIn
+      rateGroup6Hz.RateGroupMemberOut[0] -> commDriver.schedIn
+      rateGroup6Hz.RateGroupMemberOut[1] -> tlmSend.Run
+      rateGroup6Hz.RateGroupMemberOut[2] -> systemResources.run
+
     }
 
     connections FaultProtection {

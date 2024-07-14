@@ -55,7 +55,10 @@ enum { WARN = 3, FATAL = 5 };
 namespace eventLogger {
 enum { WARN = 3, FATAL = 5 };
 }
-namespace rateGroup1 {
+namespace rateGroup5sec {
+enum { WARN = 3, FATAL = 5 };
+}
+namespace rateGroup6Hz {
 enum { WARN = 3, FATAL = 5 };
 }
 }  // namespace PingEntries

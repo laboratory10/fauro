@@ -36,7 +36,8 @@ module Fauro {
   # Passive component instances
   # ----------------------------------------------------------------------
 
-  instance rateGroup1: Svc.PassiveRateGroup base id 0x1000
+  instance rateGroup5sec: Svc.PassiveRateGroup base id 0x1000
+  instance rateGroup6Hz: Svc.PassiveRateGroup base id 0x1100
 
   instance commDriver: Components.TelemetryManager base id 0x4000
 

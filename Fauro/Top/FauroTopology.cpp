@@ -25,11 +25,17 @@ Svc::FprimeFraming framing;
 Svc::FprimeDeframing deframing;
 
 // The reference topology divides the incoming clock signal (1Hz) into sub-signals: 1/100Hz, 1/200Hz, and 1/1000Hz
-Svc::RateGroupDriver::DividerSet rateGroupDivisors{{{100, 0}, {200, 0}, {1000, 0}}};
+
+// The comment above is automatically generated and left in for the record, but its wrong in our case
+// The fprime-arduino HardwareRateDriver (the instance of which is rateDriver) is configured below
+// with a 1ms tick. So a "1" here means 1000Hz and a "1000" means 1 hertz.
+// So here we have a 1hz, at 10Hz, and a 0.2Hz rate group
+Svc::RateGroupDriver::DividerSet rateGroupDivisors{{{5000, 0}, {100, 0}, {0, 0}}};
 
 // Rate groups may supply a context token to each of the attached children whose purpose is set by the project. The
 // reference topology sets each token to zero as these contexts are unused in this project.
-NATIVE_INT_TYPE rateGroup1Context[FppConstant_PassiveRateGroupOutputPorts::PassiveRateGroupOutputPorts] = {};
+NATIVE_INT_TYPE rateGroup5secContext[FppConstant_PassiveRateGroupOutputPorts::PassiveRateGroupOutputPorts] = {};
+NATIVE_INT_TYPE rateGroup6HzContext[FppConstant_PassiveRateGroupOutputPorts::PassiveRateGroupOutputPorts] = {};
 
 /**
  * \brief configure/setup components in project-specific way
@@ -43,7 +49,8 @@ void configureTopology() {
     rateGroupDriver.configure(rateGroupDivisors);
 
     // Rate groups require context arrays.
-    rateGroup1.configure(rateGroup1Context, FW_NUM_ARRAY_ELEMENTS(rateGroup1Context));
+    rateGroup5sec.configure(rateGroup5secContext, FW_NUM_ARRAY_ELEMENTS(rateGroup5secContext));
+    rateGroup6Hz.configure(rateGroup6HzContext, FW_NUM_ARRAY_ELEMENTS(rateGroup6HzContext));
 
     // Framer and Deframer components need to be passed a protocol handler
     framer.setup(framing);
