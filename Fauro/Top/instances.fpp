@@ -63,4 +63,6 @@ module Fauro {
 
   instance fswManager: Components.FswManager base id 0x4B00
 
+  instance fauroTime: Components.FauroTime base id 0x4C00
+
 }

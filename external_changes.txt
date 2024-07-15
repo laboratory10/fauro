@@ -1,0 +1,28 @@
+This file tracks changes required outside of the FAURO project directories in order for things to work smoothly for our specific implementation.
+
+1. /home/snow/fprime_fauro/fauro_project/fprime-arduino/Arduino/ArduinoTime/ArduinoTime.cpp
+
+Change contents of timeGetPort_handler to the following. The previous code incorrectly set usec.
+time_t sec = now();
+U32 usec = (millis() % 1000)*1000;
+time.set(sec, usec);
+
+2. /home/snow/fprime_fauro/fprime-venv/lib/python3.10/site-packages/fprime_gds/common/decoders/ch_decoder.py
+
+Make the following changes to allow the GDS to auto-report at the start of each boot what the unix boot time was. This can, in turn, but used with the TIME_SET command so FAURO can report correct unix time with telemetry instead of time since boot.
+    a. add import time
+    b. add the attributes self.boot_epoch_reported = False and self.last_channel_time = 0 in class init function
+    c. add the following code block inside the while loop of the decode_api function after the line "ch_list.append(ChData(val_obj, ch_time, ch_temp))"
+        raw_time = ch_list[-1].get_time()
+        raw_time = raw_time[raw_time.find("-")+1:]
+        raw_time = raw_time[:raw_time.find(")")]
+        time_since_boot = raw_time.replace(":", ".")
+        time_since_boot = float(time_since_boot)
+        if (self.last_channel_time > time_since_boot+1):
+            self.boot_epoch_reported = False
+        if self.boot_epoch_reported == False:
+            boot_time = time.time() - time_since_boot
+            print("Use the following time for the TIME_SET command to properly set the epoch time of boot: ")
+            print(int(boot_time))
+            self.boot_epoch_reported = True
+        self.last_channel_time = time_since_boot
