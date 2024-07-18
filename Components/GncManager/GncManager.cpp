@@ -11,12 +11,6 @@
 #include <Wire.h>
 
 Adafruit_BMP3XX bmp;
-boolean test1 = false;
-boolean test2 = false;
-boolean test3 = false;
-boolean test4 = false;
-boolean test5 = false;
-boolean test6 = false;
 
 namespace Components {
 
