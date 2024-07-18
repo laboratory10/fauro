@@ -65,4 +65,6 @@ module Fauro {
 
   instance fauroTime: Components.FauroTime base id 0x4C00
 
+  instance gncManager: Components.GncManager base id 0x4D00
+
 }

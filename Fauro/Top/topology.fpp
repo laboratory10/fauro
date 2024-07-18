@@ -39,6 +39,7 @@ module Fauro {
     instance tlmSend
     instance fswManager
     instance fauroTime
+    instance gncManager
 
     # ----------------------------------------------------------------------
     # Pattern graph specifiers
@@ -63,11 +64,12 @@ module Fauro {
       rateDriver.CycleOut -> rateGroupDriver.CycleIn
 
       rateGroupDriver.CycleOut[Ports_RateGroups.rateGroup5sec] -> rateGroup5sec.CycleIn
+      rateGroup5sec.RateGroupMemberOut[0] -> systemResources.run
 
       rateGroupDriver.CycleOut[Ports_RateGroups.rateGroup6Hz] -> rateGroup6Hz.CycleIn
       rateGroup6Hz.RateGroupMemberOut[0] -> commDriver.schedIn
       rateGroup6Hz.RateGroupMemberOut[1] -> tlmSend.Run
-      rateGroup6Hz.RateGroupMemberOut[2] -> systemResources.run
+      rateGroup6Hz.RateGroupMemberOut[2] -> gncManager.gncUpdate
 
     }
 

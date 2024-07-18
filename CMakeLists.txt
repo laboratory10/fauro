@@ -15,6 +15,8 @@ set(ARDUINO_SAMD_LIB_PATH "/home/snow/.arduino15/packages/adafruit/hardware/samd
 include_directories(
     ${ARDUINO_LIB_PATH}/Time
     ${ARDUINO_LIB_PATH}/RadioHead
+    ${ARDUINO_LIB_PATH}/Adafruit_Unified_Sensor
+    ${ARDUINO_LIB_PATH}/Adafruit_BMP3XX_Library
     ${ARDUINO_SAMD_LIB_PATH}/Wire
     ${ARDUINO_SAMD_LIB_PATH}/SPI
     ${ARDUINO_SAMD_LIB_PATH}/Adafruit_ZeroDMA

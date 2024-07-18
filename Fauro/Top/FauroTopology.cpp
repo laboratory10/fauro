@@ -55,6 +55,10 @@ void configureTopology() {
     // Framer and Deframer components need to be passed a protocol handler
     framer.setup(framing);
     deframer.setup(deframing);
+
+    // TODO is this proper? Doing sensor setup in the constructor setup appears to fail because it is to early in boot
+    // Sensors need to be initialized
+    gncManager.initialize();
 }
 
 // Public functions for use in main program are namespaced with deployment name Fauro

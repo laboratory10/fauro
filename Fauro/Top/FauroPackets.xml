@@ -44,9 +44,35 @@
         <channel name="systemResources.CPU_15"/>
     </packet>
 
+    <packet name="GNC1" id="8" level="2">
+        <channel name="gncManager.BAROMETRIC_PRESSURE"/>
+    </packet>
+
     <!-- Ignored packets -->
 
     <ignore>
         <channel name="cmdDisp.CommandErrors"/>
+
+        <channel name="gncManager.ACCEL_X"/>
+        <channel name="gncManager.ACCEL_Y"/>
+        <channel name="gncManager.ACCEL_Z"/>
+        <channel name="gncManager.GYRO_X"/>
+        <channel name="gncManager.GYRO_Y"/>
+        <channel name="gncManager.GYRO_Z"/>
+        <channel name="gncManager.MAG_X"/>
+        <channel name="gncManager.MAG_Y"/>
+        <channel name="gncManager.MAG_Z"/>
+        <channel name="gncManager.BAROMETRIC_ALTITUDE"/>
+        <channel name="gncManager.GPS_FIX"/>
+        <channel name="gncManager.GPS_QUALITY"/>
+        <channel name="gncManager.GPS_SATELLITES"/>
+        <channel name="gncManager.GPS_TIME"/>
+        <channel name="gncManager.GPS_LATITUDE"/>
+        <channel name="gncManager.GPS_LONGITUDE"/>
+        <channel name="gncManager.GPS_SPEED"/>
+        <channel name="gncManager.GPS_COURSE"/>
+        <channel name="gncManager.GPS_ALTITUDE"/>
+        <channel name="gncManager.IMU_TEMP"/>
+        <channel name="gncManager.BAROMETRIC_TEMP"/>
     </ignore>
 </packets>
