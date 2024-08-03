@@ -8,30 +8,30 @@ module Components {
 
         sync input port gncUpdate: Svc.Sched
 
-        telemetry ACCEL_X: F32 @< Earth G
-        telemetry ACCEL_Y: F32 @< Earth G
-        telemetry ACCEL_Z: F32 @< Earth G
-        telemetry GYRO_X: F32 @< radians/second
-        telemetry GYRO_Y: F32 @< radians/second
-        telemetry GYRO_Z: F32 @< radians/second
-        telemetry MAG_X: F32 @< micro Tesla
-        telemetry MAG_Y: F32 @< micro Tesla
-        telemetry MAG_Z: F32 @< micro Tesla
-        telemetry BAROMETRIC_ALTITUDE: F32 @< meters
+        telemetry ACCEL_X: F32 format "{.2f} G" @< Earth G
+        telemetry ACCEL_Y: F32 format "{.2f} G" @< Earth G
+        telemetry ACCEL_Z: F32 format "{.2f} G" @< Earth G
+        telemetry GYRO_X: F32 format "{.2f} rad/s" @< radians/second
+        telemetry GYRO_Y: F32 format "{.2f} rad/s" @< radians/second
+        telemetry GYRO_Z: F32 format "{.2f} rad/s" @< radians/second
+        telemetry MAG_X: F32 format "{.2f} microTesla" @< micro Tesla
+        telemetry MAG_Y: F32 format "{.2f} microTesla" @< micro Tesla
+        telemetry MAG_Z: F32 format "{.2f} microTesla" @< micro Tesla
+        telemetry BAROMETRIC_ALTITUDE: F32 format "{.2f} meters" @< meters
 
         telemetry GPS_FIX: bool @< boolean
         telemetry GPS_QUALITY: bool @< boolean
         telemetry GPS_SATELLITES: U8 @< count
         telemetry GPS_TIME: U32 @< date/time in U32
-        telemetry GPS_LATITUDE: F64 @< degrees
-        telemetry GPS_LONGITUDE: F64 @< degrees
-        telemetry GPS_SPEED: F32 @< knots
-        telemetry GPS_COURSE: F32 @< degrees
-        telemetry GPS_ALTITUDE: F32 @< meters
+        telemetry GPS_LATITUDE: F64 format "{.4f} degrees" @< degrees
+        telemetry GPS_LONGITUDE: F64 format "{.4f} degrees" @< degrees
+        telemetry GPS_SPEED: F32 format "{.2f} knots" @< knots
+        telemetry GPS_COURSE: F32 format "{.2f} degrees" @< degrees
+        telemetry GPS_ALTITUDE: F32 format "{.2f} meters" @< meters
 
         telemetry IMU_TEMP: I32 @< degrees C
         telemetry BAROMETRIC_TEMP: I32 @< degrees C
-        telemetry BAROMETRIC_PRESSURE: F32 @< hPA
+        telemetry BAROMETRIC_PRESSURE: F32 format "{.2f} hPA" @< hPA
         
         # @ Example async command
         # async command COMMAND_NAME(param_name: U32)

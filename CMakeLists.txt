@@ -17,6 +17,9 @@ include_directories(
     ${ARDUINO_LIB_PATH}/RadioHead
     ${ARDUINO_LIB_PATH}/Adafruit_Unified_Sensor
     ${ARDUINO_LIB_PATH}/Adafruit_BMP3XX_Library
+    ${ARDUINO_LIB_PATH}/Adafruit_GPS_Library
+    ${ARDUINO_LIB_PATH}/Adafruit_LS3MDL
+    ${ARDUINO_LIB_PATH}/Adafruit_LSM6DS
     ${ARDUINO_SAMD_LIB_PATH}/Wire
     ${ARDUINO_SAMD_LIB_PATH}/SPI
     ${ARDUINO_SAMD_LIB_PATH}/Adafruit_ZeroDMA

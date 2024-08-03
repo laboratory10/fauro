@@ -21,5 +21,8 @@ set(SOURCE_FILES
 target_use_arduino_libraries("Adafruit_Sensor")
 target_use_arduino_libraries("Adafruit_BMP3XX")
 target_use_arduino_libraries("Wire")
+target_use_arduino_libraries("Adafruit_GPS")
+target_use_arduino_libraries("Adafruit_LIS3MDL")
+target_use_arduino_libraries("Adafruit_LSM6DSOX")
 
 register_fprime_module()

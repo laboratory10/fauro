@@ -30,7 +30,7 @@ Svc::FprimeDeframing deframing;
 // The fprime-arduino HardwareRateDriver (the instance of which is rateDriver) is configured below
 // with a 1ms tick. So a "1" here means 1000Hz and a "1000" means 1 hertz.
 // So here we have a 1hz, at 10Hz, and a 0.2Hz rate group
-Svc::RateGroupDriver::DividerSet rateGroupDivisors{{{5000, 0}, {100, 0}, {0, 0}}};
+Svc::RateGroupDriver::DividerSet rateGroupDivisors{{{5000, 0}, {200, 0}, {0, 0}}};
 
 // Rate groups may supply a context token to each of the attached children whose purpose is set by the project. The
 // reference topology sets each token to zero as these contexts are unused in this project.

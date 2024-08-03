@@ -46,6 +46,9 @@
 
     <packet name="GNC1" id="8" level="2">
         <channel name="gncManager.BAROMETRIC_PRESSURE"/>
+        <channel name="gncManager.ACCEL_X"/>
+        <channel name="gncManager.ACCEL_Y"/>
+        <channel name="gncManager.ACCEL_Z"/>
     </packet>
 
     <!-- Ignored packets -->
@@ -53,9 +56,6 @@
     <ignore>
         <channel name="cmdDisp.CommandErrors"/>
 
-        <channel name="gncManager.ACCEL_X"/>
-        <channel name="gncManager.ACCEL_Y"/>
-        <channel name="gncManager.ACCEL_Z"/>
         <channel name="gncManager.GYRO_X"/>
         <channel name="gncManager.GYRO_Y"/>
         <channel name="gncManager.GYRO_Z"/>
