@@ -41,6 +41,12 @@ namespace Components {
           U32 cmdSeq //!< The command sequence number
       ) override;
 
+      //! Handler implementation for command FSW_RESET
+      void FSW_RESET_cmdHandler(
+          FwOpcodeType opCode, //!< The opcode
+          U32 cmdSeq //!< The command sequence number
+      ) override;
+
   };
 
 }

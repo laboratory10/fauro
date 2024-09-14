@@ -151,4 +151,14 @@ namespace Components {
     this->cmdResponse_out(opCode, cmdSeq, Fw::CmdResponse::OK);
   }
 
+  void FswManager ::
+    FSW_RESET_cmdHandler(
+        FwOpcodeType opCode,
+        U32 cmdSeq
+    )
+  {
+    this->log_FATAL_FSW_RESET_INITIATED();
+    this->cmdResponse_out(opCode, cmdSeq, Fw::CmdResponse::OK);
+  }
+
 }
