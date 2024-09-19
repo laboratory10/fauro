@@ -113,6 +113,20 @@ namespace Components {
     this->tlmWrite_MAG_Y(mag_reading.magnetic.y);
     this->tlmWrite_MAG_Z(mag_reading.magnetic.z);
 
+    this->tlmWrite_GPS_FIX(gps.fix);
+    this->tlmWrite_GPS_QUALITY(gps.fixquality);
+    this->tlmWrite_GPS_SATELLITES(gps.satellites);
+    //this->tlmWrite_GPS_TIME(gps.)
+    this->tlmWrite_GPS_LATITUDE(gps.latitudeDegrees);
+    this->tlmWrite_GPS_LONGITUDE(gps.longitudeDegrees);
+    this->tlmWrite_GPS_SPEED(gps.speed);
+    this->tlmWrite_GPS_COURSE(gps.angle);
+    this->tlmWrite_GPS_ALTITUDE(gps.altitude);
+
+
+    //telemetry IMU_TEMP: I32 @< degrees C
+    //telemetry BAROMETRIC_TEMP: I32 @< degrees C
+
     //Remember, the Adafruit BMP library is using this formula
     //altitude = 44330.0 * (1.0 - pow(atmospheric (hPa) / seaLevel, 0.1903));
     uint16_t alti_setting = 1013;
