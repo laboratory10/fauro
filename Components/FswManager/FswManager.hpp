@@ -32,6 +32,14 @@ namespace Components {
     PRIVATE:
 
       // ----------------------------------------------------------------------
+      // Handler implementations for user-defined typed input ports
+      // ----------------------------------------------------------------------
+      void schedIn_handler(
+          NATIVE_INT_TYPE portNum, //!< The port number
+          NATIVE_UINT_TYPE context //!< The call order
+      ) override;
+
+      // ----------------------------------------------------------------------
       // Handler implementations for commands
       // ----------------------------------------------------------------------
 
@@ -46,6 +54,9 @@ namespace Components {
           FwOpcodeType opCode, //!< The opcode
           U32 cmdSeq //!< The command sequence number
       ) override;
+
+      void parameterUpdated(FwPrmIdType id /*!< The parameter ID*/
+    ) override;
 
   };
 

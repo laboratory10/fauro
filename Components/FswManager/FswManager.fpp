@@ -2,9 +2,18 @@ module Components {
     @ The FswManager is the component that provides Flight Software commands, telemetry, and state information.
     passive component FswManager {
 
+        enum SYS_MODE_ENUM {
+            STARTUP, @<The mode enter upon boot
+            FLIGHT, @<The mode intended to be used with flight
+            RECOVERY, @<The mode entered after a flight has concluded
+            TEST @<A mode for testing off-nominal situations prevented in other modes
+        }
+
         ##############################################################################
         #### Uncomment the following examples to start customizing your component ####
         ##############################################################################
+
+        sync input port schedIn: Svc.Sched
 
         guarded command FSW_IMAGE_CRC()
 
@@ -17,6 +26,10 @@ module Components {
 
         event FSW_RESET_INITIATED(
                                   ) severity fatal format "A FSW RESET has been initiated"
+
+        event FSW_SYS_MODE_CHANGED(
+                                    mode: SYS_MODE_ENUM @< Current system mode
+                                  ) severity activity high format "The current system mode has changed to {}"
 
         # @ Example async command
         # async command COMMAND_NAME(param_name: U32)
@@ -32,6 +45,11 @@ module Components {
 
         # @ Example parameter
         # param PARAMETER_NAME: U32
+
+        @ Parameter to define the current system mode
+        param SYS_MODE: SYS_MODE_ENUM default SYS_MODE_ENUM.STARTUP
+
+        telemetry SYS_MODE: SYS_MODE_ENUM
 
         ###############################################################################
         # Standard AC Ports: Required for Channels, Events, Commands, and Parameters  #
@@ -56,6 +74,12 @@ module Components {
 
         @ Port for sending telemetry channels to downlink
         telemetry port tlmOut
+
+        @ Port to return the value of a parameter
+        param get port prmGetOut
+
+        @Port to set the value of a parameter
+        param set port prmSetOut
 
     }
 }

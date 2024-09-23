@@ -53,3 +53,20 @@ namespace Svc {
     }
 
 } // end namespace Svc
+
+4. Note: If you need to improve fatal logging do this in /home/snow/fprime_fauro/fauro_project/fprime/Svc/AssertFatalAdapter/AssertFatalAdapterComponentImpl.cpp
+//snow
+#include <Os/Log.hpp>
+
+//in reportAssert right before the switch statement
+POINTER_CAST pfile = reinterpret_cast<POINTER_CAST>(file);
+Os::Log::logMsg("ASSERT: \"%s\": Line: %d %d\n", pfile, lineNo, arg1);
+
+5. Have to make the contents of "void FswManagerComponentBase :: loadParameters()" to the following until a custom prmdb is developed 
+
+//Simplified load process since there is no prmDB
+this->m_paramLock.lock();
+this->m_param_SYS_MODE_valid = Fw::ParamValid::DEFAULT;
+this->m_SYS_MODE = Components::FswManager_SYS_MODE_ENUM::STARTUP;
+this->m_paramLock.unLock();
+this->parametersLoaded();

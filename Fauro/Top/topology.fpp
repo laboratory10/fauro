@@ -65,6 +65,7 @@ module Fauro {
 
       rateGroupDriver.CycleOut[Ports_RateGroups.rateGroup5sec] -> rateGroup5sec.CycleIn
       rateGroup5sec.RateGroupMemberOut[0] -> systemResources.run
+      rateGroup5sec.RateGroupMemberOut[1] -> fswManager.schedIn
 
       rateGroupDriver.CycleOut[Ports_RateGroups.rateGroup6Hz] -> rateGroup6Hz.CycleIn
       rateGroup6Hz.RateGroupMemberOut[0] -> commDriver.schedIn

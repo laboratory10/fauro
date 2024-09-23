@@ -8,6 +8,9 @@
 #include "FpConfig.hpp"
 #include <avr/pgmspace.h>
 
+//snow
+#include <Os/Log.hpp>
+
 const uint32_t checksum_table[] = {
   0x00000000, 0x77073096, 0xee0e612c, 0x990951ba,
   0x076dc419, 0x706af48f, 0xe963a535, 0x9e6495a3,
@@ -85,7 +88,6 @@ namespace Components {
     FswManager(const char* const compName) :
       FswManagerComponentBase(compName)
   {
-
   }
 
   FswManager ::
@@ -159,6 +161,39 @@ namespace Components {
   {
     this->log_FATAL_FSW_RESET_INITIATED();
     this->cmdResponse_out(opCode, cmdSeq, Fw::CmdResponse::OK);
+  }
+
+  void FswManager ::parameterUpdated(FwPrmIdType id) {
+    
+    // Read back the parameter value
+    Fw::ParamValid isValid;
+    Components::FswManager_SYS_MODE_ENUM mode = this->paramGet_SYS_MODE(isValid);
+    // NOTE: isValid is always VALID in parameterUpdated as it was just properly set
+    FW_ASSERT(isValid == Fw::ParamValid::VALID, isValid);
+
+    // Check the parameter ID is expected
+    if (PARAMID_SYS_MODE == id) {
+      this->log_ACTIVITY_HI_FSW_SYS_MODE_CHANGED(mode);
+      this->tlmWrite_SYS_MODE(mode);
+    }
+    
+  }
+
+  // ----------------------------------------------------------------------
+  // Handler implementations for user-defined typed input ports
+  // ----------------------------------------------------------------------
+
+  void FswManager :: schedIn_handler(NATIVE_INT_TYPE portNum, NATIVE_UINT_TYPE context) {
+    // Read back the parameter value
+    Fw::ParamValid isValid;
+    Components::FswManager_SYS_MODE_ENUM mode = this->paramGet_SYS_MODE(isValid);
+
+    if (isValid) {
+      this->tlmWrite_SYS_MODE(mode);
+    } else {
+      //TODO warning EVR
+    }
+    
   }
 
 }

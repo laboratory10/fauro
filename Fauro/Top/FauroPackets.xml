@@ -74,5 +74,7 @@
         <channel name="gncManager.GPS_ALTITUDE"/>
         <channel name="gncManager.IMU_TEMP"/>
         <channel name="gncManager.BAROMETRIC_TEMP"/>
+
+        <channel name="fswManager.SYS_MODE"/>
     </ignore>
 </packets>
