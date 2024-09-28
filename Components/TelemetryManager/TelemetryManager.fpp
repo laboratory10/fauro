@@ -26,7 +26,9 @@ module Components {
         @ Takes data to transmit out the UART device
         output port $recv: Drv.ByteStreamRecv
 
-        
+        @Last RSSI from received ground transmission
+        telemetry LAST_RSSI: I16 format "{} dBm" @< dBm
+
         # @ Example async command
         # async command COMMAND_NAME(param_name: U32)
 

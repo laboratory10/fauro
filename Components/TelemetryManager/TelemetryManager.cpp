@@ -51,6 +51,7 @@ namespace Components {
             if (rf69.recv(message, &packet_size)) {
                 memcpy(recv_buffer.getData(), message, packet_size);
                 recv_buffer.setSize(packet_size);
+                this->tlmWrite_LAST_RSSI(rf69.lastRssi());
             }
         }
         last_groundspeak = millis();

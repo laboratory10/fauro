@@ -77,5 +77,6 @@
 
         <channel name="fswManager.SYS_MODE"/>
         <channel name="powerManager.BAT_VOLTAGE"/>
+        <channel name="commDriver.LAST_RSSI"/>
     </ignore>
 </packets>
