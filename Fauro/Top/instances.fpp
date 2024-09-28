@@ -67,4 +67,6 @@ module Fauro {
 
   instance gncManager: Components.GncManager base id 0x4D00
 
+  instance powerManager: Components.PowerManager base id 0x4E00
+
 }

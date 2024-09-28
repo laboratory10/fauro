@@ -76,5 +76,6 @@
         <channel name="gncManager.BAROMETRIC_TEMP"/>
 
         <channel name="fswManager.SYS_MODE"/>
+        <channel name="powerManager.BAT_VOLTAGE"/>
     </ignore>
 </packets>
