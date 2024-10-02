@@ -29,8 +29,8 @@ module Components {
         telemetry GPS_COURSE: F32 format "{.2f} degrees" @< degrees
         telemetry GPS_ALTITUDE: F32 format "{.2f} meters" @< meters
 
-        telemetry IMU_TEMP: I32 @< degrees C
-        telemetry BAROMETRIC_TEMP: I32 @< degrees C
+        telemetry IMU_TEMP: I32 format "{} degrees C" @< degrees C
+        telemetry BAROMETRIC_TEMP: I32 format "{} degrees C" @< degrees C
         telemetry BAROMETRIC_PRESSURE: F32 format "{.2f} hPA" @< hPA
         
         # @ Example async command
