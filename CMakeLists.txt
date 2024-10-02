@@ -1,10 +1,10 @@
 ####
-# This sets up the build system for the 'fauro_project' project, including
+# This sets up the build system for the 'fauro' project, including
 # components and deployments from project.cmake. In addition, it imports the core F Prime components.
 ####
 
 cmake_minimum_required(VERSION 3.13)
-project(fauro_project C CXX)
+project(fauro C CXX)
 
 ### Libraries
 # Set the path to the Arduino libraries directory
