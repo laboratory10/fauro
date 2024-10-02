@@ -70,3 +70,12 @@ this->m_param_SYS_MODE_valid = Fw::ParamValid::DEFAULT;
 this->m_SYS_MODE = Components::FswManager_SYS_MODE_ENUM::STARTUP;
 this->m_paramLock.unLock();
 this->parametersLoaded();
+
+6. And to GNC parameters in GncManagerComponentBase
+
+//Simplified load process since there is no prmDB
+this->m_paramLock.lock();
+this->m_param_ALTIMETER_SETTING_valid = Fw::ParamValid::DEFAULT;
+this->m_ALTIMETER_SETTING = 1013.2075;
+this->m_paramLock.unLock();
+this->parametersLoaded();

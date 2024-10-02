@@ -44,6 +44,9 @@ namespace Components {
           NATIVE_UINT_TYPE context //!< The call order
       ) override;
 
+      void parameterUpdated(FwPrmIdType id /*!< The parameter ID*/
+      ) override;
+
   };
 
 }

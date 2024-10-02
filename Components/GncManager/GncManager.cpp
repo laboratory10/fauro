@@ -127,10 +127,31 @@ namespace Components {
 
     //Remember, the Adafruit BMP library is using this formula
     //altitude = 44330.0 * (1.0 - pow(atmospheric (hPa) / seaLevel, 0.1903));
-    uint16_t alti_setting = 1013;
-    float alt = pow(bmp.pressure/100.0/alti_setting, 0.1903);
-    alt = 44330.0 * (1 - alt);
-    this->tlmWrite_BAROMETRIC_ALTITUDE(alt);
+    Fw::ParamValid isValid;
+    F64 altimeter_setting = this->paramGet_ALTIMETER_SETTING(isValid);
+    if (isValid) {
+      float alt = pow(bmp.pressure/100.0/altimeter_setting, 0.1903);
+      alt = 44330.0 * (1 - alt);
+      this->tlmWrite_BAROMETRIC_ALTITUDE(alt);
+    } else {
+      //todo error
+    }
+  }
+
+  void GncManager ::parameterUpdated(FwPrmIdType id) {
+    
+    // Read back the parameter value
+    Fw::ParamValid isValid;
+    F64 altimeter_setting = this->paramGet_ALTIMETER_SETTING(isValid);
+    // NOTE: isValid is always VALID in parameterUpdated as it was just properly set
+    FW_ASSERT(isValid == Fw::ParamValid::VALID, isValid);
+
+    // Check the parameter ID is expected
+    if (PARAMID_ALTIMETER_SETTING == id) {
+      this->log_ACTIVITY_HI_GNC_ALTIMETER_SETTING_CHANGED(altimeter_setting);
+      this->tlmWrite_ALTIMETER_SETTING(altimeter_setting);
+    }
+    
   }
 
 }

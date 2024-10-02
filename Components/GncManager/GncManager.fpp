@@ -8,6 +8,10 @@ module Components {
 
         sync input port gncUpdate: Svc.Sched
 
+        event GNC_ALTIMETER_SETTING_CHANGED(
+                                    altimetere_setting: F64 @< Current altimeter setting
+                                  ) severity activity high format "The current altimeter setting has changed to {}"
+
         telemetry ACCEL_X: F32 format "{.2f} G" @< Earth G
         telemetry ACCEL_Y: F32 format "{.2f} G" @< Earth G
         telemetry ACCEL_Z: F32 format "{.2f} G" @< Earth G
@@ -47,6 +51,10 @@ module Components {
 
         # @ Example parameter
         # param PARAMETER_NAME: U32
+
+        @ Parameter to define the current altimeter setting
+        param ALTIMETER_SETTING: F64 default 1013.2075
+        telemetry ALTIMETER_SETTING: F64 format "{.2f} hPA" @< hPA
 
         ###############################################################################
         # Standard AC Ports: Required for Channels, Events, Commands, and Parameters  #
