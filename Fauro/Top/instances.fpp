@@ -45,7 +45,7 @@ module Fauro {
 
   instance fatalAdapter: Svc.AssertFatalAdapter base id 0x4200
 
-  instance fatalHandler: Svc.FatalHandler base id 0x4300
+  instance fatalHandler: Components.FauroFatalHandler base id 0x4300
 
   instance timeHandler: Arduino.ArduinoTime base id 0x4400
 
