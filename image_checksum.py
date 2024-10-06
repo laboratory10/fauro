@@ -3,7 +3,7 @@ import sys
 import zlib
 
 FSW_IMAGE_BINARY_FILEPATH = (os.path.dirname(sys.path[0]) 
-                             + '/fauro_project/build-fprime-automatic-featherM0/bin/featherM0/Fauro.bin')
+                             + '/fauro/build-fprime-automatic-featherM0/bin/featherM0/Fauro.bin')
 
 if os.path.exists(FSW_IMAGE_BINARY_FILEPATH):
     file = open(FSW_IMAGE_BINARY_FILEPATH, 'rb')
