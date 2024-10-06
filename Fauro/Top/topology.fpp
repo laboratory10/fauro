@@ -41,6 +41,7 @@ module Fauro {
     instance fauroTime
     instance gncManager
     instance powerManager
+    instance prmDb
 
     # ----------------------------------------------------------------------
     # Pattern graph specifiers
@@ -49,6 +50,8 @@ module Fauro {
     command connections instance cmdDisp
 
     event connections instance eventLogger
+
+    param connections instance prmDb
 
     telemetry connections instance tlmSend
 

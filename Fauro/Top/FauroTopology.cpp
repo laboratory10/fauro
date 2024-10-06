@@ -59,6 +59,12 @@ void configureTopology() {
     // TODO is this proper? Doing sensor setup in the constructor setup appears to fail because it is to early in boot
     // Sensors need to be initialized
     gncManager.initialize();
+
+    rateDriver.configure(1);
+    commDriver.configure(&Serial);
+    // Parameter database is configured with a database file name, and that file must be initially read.
+    prmDb.configure("PrmDb.dat");
+    //prmDb.readParamFile();
 }
 
 // Public functions for use in main program are namespaced with deployment name Fauro
@@ -79,8 +85,6 @@ void setupTopology(const TopologyState& state) {
     // Autocoded task kick-off (active components). Function provided by autocoder.
     startTasks(state);
     
-    rateDriver.configure(1);
-    commDriver.configure(&Serial);
     rateDriver.start();
 }
 

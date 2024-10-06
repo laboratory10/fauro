@@ -1,6 +1,6 @@
-# Components::PowerManager
+# Components::PrmDb
 
-The Power Manager reports power subsystem telemetry.
+The PrmDb component stores and saved parameter values.
 
 ## Usage Examples
 Add usage examples here

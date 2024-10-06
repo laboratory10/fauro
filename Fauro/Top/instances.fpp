@@ -69,4 +69,6 @@ module Fauro {
 
   instance powerManager: Components.PowerManager base id 0x4E00
 
+  instance prmDb: Components.PrmDb base id 0x4F00
+
 }

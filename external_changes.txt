@@ -34,21 +34,3 @@ Make the following changes to allow the GDS to auto-report at the start of each 
 //in reportAssert right before the switch statement
 POINTER_CAST pfile = reinterpret_cast<POINTER_CAST>(file);
 Os::Log::logMsg("ASSERT: \"%s\": Line: %d %d\n", pfile, lineNo, arg1);
-
-4. Have to make the contents of "void FswManagerComponentBase :: loadParameters()" to the following until a custom prmdb is developed 
-
-//Simplified load process since there is no prmDB
-this->m_paramLock.lock();
-this->m_param_SYS_MODE_valid = Fw::ParamValid::DEFAULT;
-this->m_SYS_MODE = Components::FswManager_SYS_MODE_ENUM::STARTUP;
-this->m_paramLock.unLock();
-this->parametersLoaded();
-
-5. And to GNC parameters in GncManagerComponentBase
-
-//Simplified load process since there is no prmDB
-this->m_paramLock.lock();
-this->m_param_ALTIMETER_SETTING_valid = Fw::ParamValid::DEFAULT;
-this->m_ALTIMETER_SETTING = 1013.2075;
-this->m_paramLock.unLock();
-this->parametersLoaded();
