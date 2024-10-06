@@ -129,10 +129,11 @@ namespace Components {
     //altitude = 44330.0 * (1.0 - pow(atmospheric (hPa) / seaLevel, 0.1903));
     Fw::ParamValid isValid;
     F64 altimeter_setting = this->paramGet_ALTIMETER_SETTING(isValid);
-    if (isValid) {
+    if (isValid != Fw::ParamValid::UNINIT && isValid != Fw::ParamValid::INVALID) {
       float alt = pow(bmp.pressure/100.0/altimeter_setting, 0.1903);
       alt = 44330.0 * (1 - alt);
       this->tlmWrite_BAROMETRIC_ALTITUDE(alt);
+      this->tlmWrite_ALTIMETER_SETTING(altimeter_setting);
     } else {
       //todo error
     }
