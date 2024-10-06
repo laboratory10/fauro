@@ -2,10 +2,6 @@ module Components {
     @ The TelemetryManager is sent events and telemetry from all places within the system to prepare the for downlink via radio, serial, or SD storage as applicable.
     passive component TelemetryManager {
 
-        ##############################################################################
-        #### Uncomment the following examples to start customizing your component ####
-        ##############################################################################
-
         ##TODO should any of these ports be guarded? see: https://nasa.github.io/fprime/UsersGuide/user/port-comp-top.html#a-quick-look-at-port-kinds-defined-in-a-components-usage
         
         @ Polling for receiving data
@@ -28,21 +24,6 @@ module Components {
 
         @Last RSSI from received ground transmission
         telemetry LAST_RSSI: I16 format "{} dBm" @< dBm
-
-        # @ Example async command
-        # async command COMMAND_NAME(param_name: U32)
-
-        # @ Example telemetry counter
-        # telemetry ExampleCounter: U64
-
-        # @ Example event
-        # event ExampleStateEvent(example_state: Fw.On) severity activity high id 0 format "State set to {}"
-
-        # @ Example port: receiving calls from the rate group
-        # sync input port run: Svc.Sched
-
-        # @ Example parameter
-        # param PARAMETER_NAME: U32
 
         ###############################################################################
         # Standard AC Ports: Required for Channels, Events, Commands, and Parameters  #

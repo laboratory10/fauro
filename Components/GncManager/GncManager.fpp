@@ -2,10 +2,6 @@ module Components {
     @ Only component allowed to read/write from the I2C bus and the one tasked with updating GNC telemetry and commanding
     passive component GncManager {
 
-        ##############################################################################
-        #### Uncomment the following examples to start customizing your component ####
-        ##############################################################################
-
         sync input port gncUpdate: Svc.Sched
 
         event GNC_ALTIMETER_SETTING_CHANGED(
@@ -36,21 +32,6 @@ module Components {
         telemetry IMU_TEMP: I32 format "{} degrees C" @< degrees C
         telemetry BAROMETRIC_TEMP: I32 format "{} degrees C" @< degrees C
         telemetry BAROMETRIC_PRESSURE: F32 format "{.2f} hPA" @< hPA
-        
-        # @ Example async command
-        # async command COMMAND_NAME(param_name: U32)
-
-        # @ Example telemetry counter
-        # telemetry ExampleCounter: U64
-
-        # @ Example event
-        # event ExampleStateEvent(example_state: Fw.On) severity activity high id 0 format "State set to {}"
-
-        # @ Example port: receiving calls from the rate group
-        # sync input port run: Svc.Sched
-
-        # @ Example parameter
-        # param PARAMETER_NAME: U32
 
         @ Parameter to define the current altimeter setting
         param ALTIMETER_SETTING: F64 default 1013.2075
