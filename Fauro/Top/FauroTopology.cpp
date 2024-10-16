@@ -64,7 +64,7 @@ void configureTopology() {
     gncManager.initialize();
 
     rateDriver.configure(1);
-    commDriver.configure(&Serial);
+    telemetryManager.configure(&Serial);
     SD.begin(SDCARD_CS);
     // Parameter database is configured with a database file name, and that file must be initially read.
     prmDb.configure("PrmDb.dat");

@@ -190,6 +190,7 @@ namespace Components {
 
     if (isValid) {
       this->tlmWrite_SYS_MODE(mode);
+      //TODO write the current available memory, and another other usage stats you can to telemetry
     } else {
       //TODO warning EVR
     }

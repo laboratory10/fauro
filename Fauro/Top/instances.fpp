@@ -39,7 +39,7 @@ module Fauro {
   instance rateGroup5sec: Svc.PassiveRateGroup base id 0x1000
   instance rateGroup6Hz: Svc.PassiveRateGroup base id 0x1100
 
-  instance commDriver: Components.TelemetryManager base id 0x4000
+  instance telemetryManager: Components.TelemetryManager base id 0x4000
 
   instance framer: Svc.Framer base id 0x4100
 
@@ -57,18 +57,16 @@ module Fauro {
 
   instance deframer: Svc.Deframer base id 0x4800
 
-  instance systemResources: Svc.SystemResources base id 0x4900
+  instance rateDriver: Arduino.HardwareRateDriver base id 0x4900
 
-  instance rateDriver: Arduino.HardwareRateDriver base id 0x4A00
+  instance fswManager: Components.FswManager base id 0x4A00
 
-  instance fswManager: Components.FswManager base id 0x4B00
+  instance fauroTime: Components.FauroTime base id 0x4B00
 
-  instance fauroTime: Components.FauroTime base id 0x4C00
+  instance gncManager: Components.GncManager base id 0x4C00
 
-  instance gncManager: Components.GncManager base id 0x4D00
+  instance powerManager: Components.PowerManager base id 0x4D00
 
-  instance powerManager: Components.PowerManager base id 0x4E00
-
-  instance prmDb: Components.PrmDb base id 0x4F00
+  instance prmDb: Components.PrmDb base id 0x4E00
 
 }
