@@ -12,6 +12,8 @@
 #include <cstring>
 #include <cstdio>
 
+#include <SD.h>
+
 namespace Components {
 
 
@@ -126,12 +128,13 @@ namespace Components {
     void PrmDb::PRM_SAVE_FILE_cmdHandler(FwOpcodeType opCode, U32 cmdSeq) {
         
         FW_ASSERT(this->m_fileName.length() > 0);
-        Os::File paramFile;
+        SDFile parameter_file;
+        size_t stat;
         WorkingBuffer buff;
-
-        Os::File::Status stat = paramFile.open(this->m_fileName.toChar(),Os::File::OPEN_WRITE);
-        if (stat != Os::File::OP_OK) {
-            this->log_WARNING_HI_PrmFileWriteError(PrmWriteError::OPEN,0,stat);
+        SD.remove(this->m_fileName.toChar());
+        parameter_file = SD.open(this->m_fileName.toChar(), FILE_WRITE);
+        if (!parameter_file) {
+            this->log_WARNING_HI_PrmFileWriteError(PrmWriteError::OPEN,0,parameter_file);
             this->cmdResponse_out(opCode,cmdSeq,Fw::CmdResponse::EXECUTION_ERROR);
             return;
         }
@@ -147,16 +150,10 @@ namespace Components {
                 // write delimiter
                 static const U8 delim = PRMDB_ENTRY_DELIMITER;
                 NATIVE_INT_TYPE writeSize = sizeof(delim);
-                stat = paramFile.write(&delim,writeSize,true);
-                if (stat != Os::File::OP_OK) {
+                stat = parameter_file.write(&delim,writeSize);
+                if (writeSize != stat) {
                     this->unLock();
-                    this->log_WARNING_HI_PrmFileWriteError(PrmWriteError::DELIMITER,numRecords,stat);
-                    this->cmdResponse_out(opCode,cmdSeq,Fw::CmdResponse::EXECUTION_ERROR);
-                    return;
-                }
-                if (writeSize != sizeof(delim)) {
-                    this->unLock();
-                    this->log_WARNING_HI_PrmFileWriteError(PrmWriteError::DELIMITER_SIZE,numRecords,writeSize);
+                    this->log_WARNING_HI_PrmFileWriteError(PrmWriteError::DELIMITER_SIZE,numRecords,stat);
                     this->cmdResponse_out(opCode,cmdSeq,Fw::CmdResponse::EXECUTION_ERROR);
                     return;
                 }
@@ -171,16 +168,10 @@ namespace Components {
 
                 // write record size
                 writeSize = buff.getBuffLength();
-                stat = paramFile.write(buff.getBuffAddr(),writeSize,true);
-                if (stat != Os::File::OP_OK) {
+                stat = parameter_file.write(buff.getBuffAddr(),writeSize);
+                if (writeSize != stat) {
                     this->unLock();
-                    this->log_WARNING_HI_PrmFileWriteError(PrmWriteError::RECORD_SIZE,numRecords,stat);
-                    this->cmdResponse_out(opCode,cmdSeq,Fw::CmdResponse::EXECUTION_ERROR);
-                    return;
-                }
-                if (writeSize != sizeof(writeSize)) {
-                    this->unLock();
-                    this->log_WARNING_HI_PrmFileWriteError(PrmWriteError::RECORD_SIZE_SIZE,numRecords,writeSize);
+                    this->log_WARNING_HI_PrmFileWriteError(PrmWriteError::RECORD_SIZE_SIZE,numRecords,stat);
                     this->cmdResponse_out(opCode,cmdSeq,Fw::CmdResponse::EXECUTION_ERROR);
                     return;
                 }
@@ -196,16 +187,10 @@ namespace Components {
 
                 // write parameter ID
                 writeSize = buff.getBuffLength();
-                stat = paramFile.write(buff.getBuffAddr(),writeSize,true);
-                if (stat != Os::File::OP_OK) {
+                stat = parameter_file.write(buff.getBuffAddr(),writeSize);
+                if (writeSize != stat) {
                     this->unLock();
-                    this->log_WARNING_HI_PrmFileWriteError(PrmWriteError::PARAMETER_ID,numRecords,stat);
-                    this->cmdResponse_out(opCode,cmdSeq,Fw::CmdResponse::EXECUTION_ERROR);
-                    return;
-                }
-                if (writeSize != static_cast<NATIVE_INT_TYPE>(buff.getBuffLength())) {
-                    this->unLock();
-                    this->log_WARNING_HI_PrmFileWriteError(PrmWriteError::PARAMETER_ID_SIZE,numRecords,writeSize);
+                    this->log_WARNING_HI_PrmFileWriteError(PrmWriteError::PARAMETER_ID_SIZE,numRecords,stat);
                     this->cmdResponse_out(opCode,cmdSeq,Fw::CmdResponse::EXECUTION_ERROR);
                     return;
                 }
@@ -213,16 +198,10 @@ namespace Components {
                 // write serialized parameter value
 
                 writeSize = this->m_db[entry].val.getBuffLength();
-                stat = paramFile.write(this->m_db[entry].val.getBuffAddr(),writeSize,true);
-                if (stat != Os::File::OP_OK) {
+                stat = parameter_file.write(this->m_db[entry].val.getBuffAddr(),writeSize);
+                if (writeSize != stat) {
                     this->unLock();
-                    this->log_WARNING_HI_PrmFileWriteError(PrmWriteError::PARAMETER_VALUE,numRecords,stat);
-                    this->cmdResponse_out(opCode,cmdSeq,Fw::CmdResponse::EXECUTION_ERROR);
-                    return;
-                }
-                if (writeSize != static_cast<NATIVE_INT_TYPE>(this->m_db[entry].val.getBuffLength())) {
-                    this->unLock();
-                    this->log_WARNING_HI_PrmFileWriteError(PrmWriteError::PARAMETER_VALUE_SIZE,numRecords,writeSize);
+                    this->log_WARNING_HI_PrmFileWriteError(PrmWriteError::PARAMETER_VALUE_SIZE,numRecords,stat);
                     this->cmdResponse_out(opCode,cmdSeq,Fw::CmdResponse::EXECUTION_ERROR);
                     return;
                 }
@@ -230,6 +209,7 @@ namespace Components {
             } // end if record in use
         } // end for each record
 
+        parameter_file.close();
         this->unLock();
         this->log_ACTIVITY_HI_PrmFileSaveComplete(numRecords);
         this->cmdResponse_out(opCode,cmdSeq,Fw::CmdResponse::OK);
@@ -242,11 +222,12 @@ namespace Components {
     void PrmDb::readParamFile() {
         FW_ASSERT(this->m_fileName.length() > 0);
         // load file. FIXME: Put more robust file checking, such as a CRC.
-        Os::File paramFile;
+        SDFile parameter_file;
+        size_t stat;
 
-        Os::File::Status stat = paramFile.open(this->m_fileName.toChar(),Os::File::OPEN_READ);
-        if (stat != Os::File::OP_OK) {
-            this->log_WARNING_HI_PrmFileReadError(PrmReadError::OPEN,0,stat);
+        parameter_file = SD.open(this->m_fileName.toChar(), FILE_READ);
+        if (!parameter_file) {
+            this->log_WARNING_HI_PrmFileReadError(PrmReadError::OPEN,0,parameter_file);
             return;
         }
 
@@ -262,20 +243,14 @@ namespace Components {
             NATIVE_INT_TYPE readSize = sizeof(delimiter);
 
             // read delimiter
-            Os::File::Status fStat = paramFile.read(&delimiter,readSize,true);
-
+            stat = parameter_file.read(&delimiter,readSize);
             // check for end of file (read size 0)
-            if (0 == readSize) {
+            if (0 == stat) {
                 break;
             }
 
-            if (fStat != Os::File::OP_OK) {
-                this->log_WARNING_HI_PrmFileReadError(PrmReadError::DELIMITER,recordNum,fStat);
-                return;
-            }
-
-            if (sizeof(delimiter) != readSize) {
-                this->log_WARNING_HI_PrmFileReadError(PrmReadError::DELIMITER_SIZE,recordNum,readSize);
+            if (readSize != stat) {
+                this->log_WARNING_HI_PrmFileReadError(PrmReadError::DELIMITER_SIZE,recordNum,stat);
                 return;
             }
 
@@ -288,13 +263,9 @@ namespace Components {
             // read record size
             readSize = sizeof(recordSize);
 
-            fStat = paramFile.read(buff.getBuffAddr(),readSize,true);
-            if (fStat != Os::File::OP_OK) {
-                this->log_WARNING_HI_PrmFileReadError(PrmReadError::RECORD_SIZE,recordNum,fStat);
-                return;
-            }
-            if (sizeof(recordSize) != readSize) {
-                this->log_WARNING_HI_PrmFileReadError(PrmReadError::RECORD_SIZE_SIZE,recordNum,readSize);
+            stat = parameter_file.read(buff.getBuffAddr(),readSize);
+            if (readSize != stat) {
+                this->log_WARNING_HI_PrmFileReadError(PrmReadError::RECORD_SIZE_SIZE,recordNum,stat);
                 return;
             }
             // set serialized size to read size
@@ -318,13 +289,9 @@ namespace Components {
             FwPrmIdType parameterId = 0;
             readSize = sizeof(FwPrmIdType);
 
-            fStat = paramFile.read(buff.getBuffAddr(),readSize,true);
-            if (fStat != Os::File::OP_OK) {
-                this->log_WARNING_HI_PrmFileReadError(PrmReadError::PARAMETER_ID,recordNum,fStat);
-                return;
-            }
-            if (sizeof(parameterId) != static_cast<NATIVE_INT_TYPE>(readSize)) {
-                this->log_WARNING_HI_PrmFileReadError(PrmReadError::PARAMETER_ID_SIZE,recordNum,readSize);
+            stat = parameter_file.read(buff.getBuffAddr(),readSize);
+            if (readSize != stat) {
+                this->log_WARNING_HI_PrmFileReadError(PrmReadError::PARAMETER_ID_SIZE,recordNum,stat);
                 return;
             }
 
@@ -343,14 +310,10 @@ namespace Components {
             this->m_db[entry].id = parameterId;
             readSize = recordSize-sizeof(parameterId);
 
-            fStat = paramFile.read(this->m_db[entry].val.getBuffAddr(),readSize);
+            stat = parameter_file.read(this->m_db[entry].val.getBuffAddr(),readSize);
 
-            if (fStat != Os::File::OP_OK) {
-                this->log_WARNING_HI_PrmFileReadError(PrmReadError::PARAMETER_VALUE,recordNum,fStat);
-                return;
-            }
-            if (static_cast<U32>(readSize) != recordSize-sizeof(parameterId)) {
-                this->log_WARNING_HI_PrmFileReadError(PrmReadError::PARAMETER_VALUE_SIZE,recordNum,readSize);
+            if (readSize != stat) {
+                this->log_WARNING_HI_PrmFileReadError(PrmReadError::PARAMETER_VALUE_SIZE,recordNum,stat);
                 return;
             }
 
@@ -362,6 +325,7 @@ namespace Components {
 
         }
 
+        parameter_file.close();
         this->log_ACTIVITY_HI_PrmFileLoadComplete(recordNum);
     }
 

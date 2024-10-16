@@ -12,6 +12,9 @@
 #include <Fw/Types/MallocAllocator.hpp>
 #include <Svc/FramingProtocol/FprimeProtocol.hpp>
 
+#include <SD.h>
+#define SDCARD_CS              (4) //SD card ship select for SPI bus
+
 // Allows easy reference to objects in FPP/autocoder required namespaces
 using namespace Fauro;
 
@@ -62,9 +65,10 @@ void configureTopology() {
 
     rateDriver.configure(1);
     commDriver.configure(&Serial);
+    SD.begin(SDCARD_CS);
     // Parameter database is configured with a database file name, and that file must be initially read.
     prmDb.configure("PrmDb.dat");
-    //prmDb.readParamFile();
+    prmDb.readParamFile();
 }
 
 // Public functions for use in main program are namespaced with deployment name Fauro

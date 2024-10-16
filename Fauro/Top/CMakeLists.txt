@@ -18,4 +18,6 @@ set(MOD_DEPS
   Os/Baremetal/TaskRunner
 )
 
+target_use_arduino_libraries("SD")
+
 register_fprime_module()
