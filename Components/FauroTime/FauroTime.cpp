@@ -7,6 +7,7 @@
 #include "Components/FauroTime/FauroTime.hpp"
 #include "FpConfig.hpp"
 #include <TimeLib.h>
+#include <Arduino.h>
 
 namespace Components {
 
@@ -26,6 +27,15 @@ namespace Components {
   {
 
   }
+
+  void FauroTime::timeGetPort_handler(
+        NATIVE_INT_TYPE portNum, /*!< The port number*/
+        Fw::Time &time /*!< The time to set */
+    ) {
+        time_t sec = now();
+        U32 usec = (millis() % 1000)*1000;
+        time.set(sec, usec);
+    }
 
   // ----------------------------------------------------------------------
   // Handler implementations for commands

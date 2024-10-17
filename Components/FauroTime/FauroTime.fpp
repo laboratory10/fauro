@@ -2,6 +2,9 @@ module Components {
     @ Component that controls and configures the FAURO clock
     passive component FauroTime {
 
+        @ Port to retrieve time
+        sync input port timeGetPort: Fw.Time
+
         guarded command TIME_SET(epoch_offset_seconds: U32)
 
         event TIME_FROM_EPOCH_SET() severity activity high format "FAURO's clock has been updated to have knowledge of time since the unix epoch"

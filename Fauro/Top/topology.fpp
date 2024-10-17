@@ -34,7 +34,7 @@ module Fauro {
     instance rateGroupDriver
     instance staticMemory
     instance textLogger
-    instance timeHandler
+    #instance timeHandler
     instance tlmSend
     instance fswManager
     instance fauroTime
@@ -56,7 +56,8 @@ module Fauro {
 
     text event connections instance textLogger
 
-    time connections instance timeHandler
+    #time connections instance timeHandler
+    time connections instance fauroTime
 
     # ----------------------------------------------------------------------
     # Direct graph specifiers

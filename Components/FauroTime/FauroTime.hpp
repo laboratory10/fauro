@@ -29,6 +29,12 @@ namespace Components {
       //! Destroy FauroTime object
       ~FauroTime();
 
+      protected:
+        void timeGetPort_handler(
+                NATIVE_INT_TYPE portNum, /*!< The port number*/
+                Fw::Time &time /*!< The U32 cmd argument*/
+            );
+
     PRIVATE:
 
       // ----------------------------------------------------------------------
