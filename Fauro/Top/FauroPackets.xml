@@ -28,6 +28,7 @@
         <channel name="gncManager.GPS_FIX"/>
         <channel name="gncManager.GPS_QUALITY"/>
         <channel name="gncManager.GPS_SATELLITES"/>
+        <channel name="gncManager.GPS_DATE"/>
         <channel name="gncManager.GPS_TIME"/>
         <channel name="gncManager.GPS_LATITUDE"/>
         <channel name="gncManager.GPS_LONGITUDE"/>

@@ -13,10 +13,15 @@
 #include <Adafruit_Sensor.h>
 #include <Wire.h>
 
+//snow
+#include <Os/Log.hpp>
+
 Adafruit_LSM6DSOX imu;
 Adafruit_LIS3MDL mag;
 Adafruit_GPS gps(&Wire);
 Adafruit_BMP3XX bmp;
+
+U8 last_gps = 0;
 
 sensors_event_t accel_reading, gyro_reading, mag_reading, temp_reading;
 
@@ -113,14 +118,28 @@ namespace Components {
     this->tlmWrite_MAG_Y(mag_reading.magnetic.y);
     this->tlmWrite_MAG_Z(mag_reading.magnetic.z);
 
-    this->tlmWrite_GPS_FIX(gps.fix);
-    this->tlmWrite_GPS_QUALITY(gps.fixquality);
-    this->tlmWrite_GPS_SATELLITES(gps.satellites);
-    this->tlmWrite_GPS_LATITUDE(gps.latitudeDegrees);
-    this->tlmWrite_GPS_LONGITUDE(gps.longitudeDegrees);
-    this->tlmWrite_GPS_SPEED(gps.speed);
-    this->tlmWrite_GPS_COURSE(gps.angle);
-    this->tlmWrite_GPS_ALTITUDE(gps.altitude);
+    //reading GPS blocks the receiver, so only do this every second or two
+    if (last_gps > 5) {
+      last_gps = 0;
+      this->tlmWrite_GPS_FIX(gps.fix);
+      this->tlmWrite_GPS_QUALITY(gps.fixquality);
+      this->tlmWrite_GPS_SATELLITES(gps.satellites);
+
+      char gps_date[11];
+      char gps_time[11];
+      snprintf(gps_date, 11, "%04d-%02d-%02d", gps.year+2000, gps.month, gps.day);
+      snprintf(gps_time, 11, "%02d:%02d:%02dZ", gps.hour, gps.minute, gps.seconds);
+      this->tlmWrite_GPS_DATE(gps_date);
+      this->tlmWrite_GPS_TIME(gps_time);
+      
+      this->tlmWrite_GPS_LATITUDE(gps.latitudeDegrees);
+      this->tlmWrite_GPS_LONGITUDE(gps.longitudeDegrees);
+      this->tlmWrite_GPS_SPEED(gps.speed);
+      this->tlmWrite_GPS_COURSE(gps.angle);
+      this->tlmWrite_GPS_ALTITUDE(gps.altitude);
+    } else {
+      last_gps++;
+    }
 
     this->tlmWrite_IMU_TEMP(temp_reading.temperature);
     this->tlmWrite_BAROMETRIC_TEMP(bmp.temperature);

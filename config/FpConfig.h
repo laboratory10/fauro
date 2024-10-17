@@ -264,7 +264,7 @@ typedef U32 FwDpPriorityType;
 
 // Specifies the maximum size of a string in a telemetry channel
 #ifndef FW_TLM_STRING_MAX_SIZE
-#define FW_TLM_STRING_MAX_SIZE 10  //!< Max size of channelized telemetry string type
+#define FW_TLM_STRING_MAX_SIZE 11  //!< Max size of channelized telemetry string type
 #endif
 
 // Specifies the size of the buffer that contains the serialized parameter value.

@@ -22,7 +22,8 @@ module Components {
         telemetry GPS_FIX: bool @< boolean
         telemetry GPS_QUALITY: bool @< boolean
         telemetry GPS_SATELLITES: U8 @< count
-        telemetry GPS_TIME: U32 @< date/time in U32
+        telemetry GPS_DATE: string size 11 @< gps date in string form
+        telemetry GPS_TIME: string size 11 @< gps time in string form
         telemetry GPS_LATITUDE: F64 format "{.4f} degrees" @< degrees
         telemetry GPS_LONGITUDE: F64 format "{.4f} degrees" @< degrees
         telemetry GPS_SPEED: F32 format "{.2f} knots" @< knots
