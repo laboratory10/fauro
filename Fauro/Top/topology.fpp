@@ -21,7 +21,7 @@ module Fauro {
     # Instances used in the topology
     # ----------------------------------------------------------------------
 
-    instance cmdDisp
+    instance commandDispatcher
     instance telemetryManager
     instance deframer
     instance eventLogger
@@ -34,7 +34,6 @@ module Fauro {
     instance rateGroupDriver
     instance staticMemory
     instance textLogger
-    #instance timeHandler
     instance tlmSend
     instance fswManager
     instance fauroTime
@@ -46,7 +45,7 @@ module Fauro {
     # Pattern graph specifiers
     # ----------------------------------------------------------------------
 
-    command connections instance cmdDisp
+    command connections instance commandDispatcher
 
     event connections instance eventLogger
 
@@ -56,7 +55,6 @@ module Fauro {
 
     text event connections instance textLogger
 
-    #time connections instance timeHandler
     time connections instance fauroTime
 
     # ----------------------------------------------------------------------
@@ -100,8 +98,8 @@ module Fauro {
       telemetryManager.$recv -> deframer.framedIn
       deframer.framedDeallocate -> staticMemory.bufferDeallocate[Ports_StaticMemory.deframer]
 
-      deframer.comOut -> cmdDisp.seqCmdBuff
-      cmdDisp.seqCmdStatus -> deframer.cmdResponseIn
+      deframer.comOut -> commandDispatcher.seqCmdBuff
+      commandDispatcher.seqCmdStatus -> deframer.cmdResponseIn
 
       deframer.bufferAllocate -> staticMemory.bufferAllocate[Ports_StaticMemory.deframing]
       deframer.bufferDeallocate -> staticMemory.bufferDeallocate[Ports_StaticMemory.deframing]

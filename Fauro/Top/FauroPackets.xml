@@ -5,8 +5,8 @@
     <!-- Ignored packets -->
 
     <ignore>
-        <channel name="cmdDisp.CommandsDispatched"/>
-        <channel name="cmdDisp.CommandErrors"/>
+        <channel name="commandDispatcher.CommandsDispatched"/>
+        <channel name="commandDispatcher.CommandErrors"/>
         <channel name="rateGroup5sec.MaxCycleTime"/>
         <channel name="rateGroup5sec.CycleTime"/>
         <channel name="rateGroup5sec.CycleCount"/>
