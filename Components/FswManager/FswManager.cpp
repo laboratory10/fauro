@@ -183,17 +183,27 @@ namespace Components {
   // Handler implementations for user-defined typed input ports
   // ----------------------------------------------------------------------
 
+  extern "C" char* sbrk(int incr);
+
+  int ram_available() {
+    char top;
+    return &top - reinterpret_cast<char*>(sbrk(0));
+  }
+
   void FswManager :: schedIn_handler(NATIVE_INT_TYPE portNum, NATIVE_UINT_TYPE context) {
+    //report fsw channels
+
     // Read back the parameter value
     Fw::ParamValid isValid;
     Components::FswManager_SYS_MODE_ENUM mode = this->paramGet_SYS_MODE(isValid);
 
     if (isValid) {
       this->tlmWrite_SYS_MODE(mode);
-      //TODO write the current available memory, and another other usage stats you can to telemetry
     } else {
       //TODO warning EVR
     }
+
+    this->tlmWrite_RAM_AVAILABLE(ram_available());
     
   }
 

@@ -40,6 +40,7 @@
         <channel name="gncManager.ALTIMETER_SETTING"/>
 
         <channel name="fswManager.SYS_MODE"/>
+        <channel name="fswManager.RAM_AVAILABLE"/>
         <channel name="powerManager.BAT_VOLTAGE"/>
         <channel name="telemetryManager.LAST_RSSI"/>
     </ignore>
