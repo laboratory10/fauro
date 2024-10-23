@@ -2,12 +2,12 @@ module Components {
     @ The FswManager is the component that provides Flight Software commands, telemetry, and state information.
     passive component FswManager {
 
-        enum SYS_MODE_ENUM {
-            STARTUP, @<The mode enter upon boot
-            FLIGHT, @<The mode intended to be used with flight
-            RECOVERY, @<The mode entered after a flight has concluded
-            TEST @<A mode for testing off-nominal situations prevented in other modes
-        }
+        #enum SYS_MODE_ENUM {
+        #    STARTUP, @<The mode enter upon boot
+        #    FLIGHT, @<The mode intended to be used with flight
+        #    RECOVERY, @<The mode entered after a flight has concluded
+        #    TEST @<A mode for testing off-nominal situations prevented in other modes
+        #}
 
         sync input port schedIn: Svc.Sched
 
@@ -24,13 +24,16 @@ module Components {
                                   ) severity fatal format "A FSW RESET has been initiated"
 
         event FSW_SYS_MODE_CHANGED(
-                                    mode: SYS_MODE_ENUM @< Current system mode
+                                    mode: Types.SYS_MODE @< Current system mode
                                   ) severity activity high format "The current system mode has changed to {}"
 
         @ Parameter to define the current system mode
-        param SYS_MODE: SYS_MODE_ENUM default SYS_MODE_ENUM.STARTUP
+        param SYS_MODE: Types.SYS_MODE default Types.SYS_MODE.STARTUP
 
-        telemetry SYS_MODE: SYS_MODE_ENUM
+        telemetry SYS_MODE: Types.SYS_MODE
+        telemetry RAM_AVAILABLE: I32 format "{} bytes" @< bytes
+
+        sync input port modeRequest: Ports.sysModeRequest
 
         ###############################################################################
         # Standard AC Ports: Required for Channels, Events, Commands, and Parameters  #

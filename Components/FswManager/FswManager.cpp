@@ -167,7 +167,7 @@ namespace Components {
     
     // Read back the parameter value
     Fw::ParamValid isValid;
-    Components::FswManager_SYS_MODE_ENUM mode = this->paramGet_SYS_MODE(isValid);
+    Types::SYS_MODE mode = this->paramGet_SYS_MODE(isValid);
     // NOTE: isValid is always VALID in parameterUpdated as it was just properly set
     FW_ASSERT(isValid == Fw::ParamValid::VALID, isValid);
 
@@ -183,6 +183,18 @@ namespace Components {
   // Handler implementations for user-defined typed input ports
   // ----------------------------------------------------------------------
 
+  void FswManager ::
+    modeRequest_handler(
+        NATIVE_INT_TYPE portNum,
+        Types::SYS_MODE& mode,
+        Fw::ParamValid& valid
+    )
+  {
+    // Read back the parameter value
+    mode = this->paramGet_SYS_MODE(valid);
+    return;
+  }
+
   extern "C" char* sbrk(int incr);
 
   int ram_available() {
@@ -195,7 +207,7 @@ namespace Components {
 
     // Read back the parameter value
     Fw::ParamValid isValid;
-    Components::FswManager_SYS_MODE_ENUM mode = this->paramGet_SYS_MODE(isValid);
+    Types::SYS_MODE mode = this->paramGet_SYS_MODE(isValid);
 
     if (isValid) {
       this->tlmWrite_SYS_MODE(mode);

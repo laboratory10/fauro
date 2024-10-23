@@ -25,6 +25,12 @@ module Components {
         @Last RSSI from received ground transmission
         telemetry LAST_RSSI: I16 format "{} dBm" @< dBm
 
+        event TELEMETRY_LOG_OPENED(filename: string size 15) severity activity high format "A new log file was opened with a name: {}"
+        event TELEMETRY_LOG_OPEN_FAIL(filename: string size 15) severity warning low format "A new log with the name {} could not be opened"
+        event TELEMETRY_LOG_CLOSED(filename: string size 15) severity activity high format "Attempting to close a log file named {}"
+
+        output port modeRequest: Ports.sysModeRequest
+
         ###############################################################################
         # Standard AC Ports: Required for Channels, Events, Commands, and Parameters  #
         ###############################################################################

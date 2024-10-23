@@ -34,6 +34,14 @@ namespace Components {
       // ----------------------------------------------------------------------
       // Handler implementations for user-defined typed input ports
       // ----------------------------------------------------------------------
+      
+      //! Handler implementation for modeRequest
+      void modeRequest_handler(
+          NATIVE_INT_TYPE portNum, //!< The port number
+          Types::SYS_MODE& mode, //!< a place to put the current system mode
+          Fw::ParamValid& valid //!< a place to indicate whether the parameter value is valid
+      ) override;
+
       void schedIn_handler(
           NATIVE_INT_TYPE portNum, //!< The port number
           NATIVE_UINT_TYPE context //!< The call order

@@ -107,7 +107,7 @@ module Fauro {
     }
 
     connections Fauro {
-      # Add here connections to user-defined components
+      telemetryManager.modeRequest -> fswManager.modeRequest
     }
 
   }

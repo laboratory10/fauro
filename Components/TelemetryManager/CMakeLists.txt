@@ -14,9 +14,11 @@ set(SOURCE_FILES
 # Uncomment and add any modules that this component depends on, else
 # they might not be available when cmake tries to build this component.
 
-# set(MOD_DEPS
-#     Add your dependencies here
-# )
+set(MOD_DEPS
+  Ports
+  Types
+  Components/FswManager
+)
 
 if(FPRIME_ARDUINO)
     list(APPEND SOURCE_FILES "${CMAKE_CURRENT_LIST_DIR}/TelemetryManagerArduino.cpp")
