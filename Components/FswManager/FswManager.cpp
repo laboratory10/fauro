@@ -1,6 +1,6 @@
 // ======================================================================
 // \title  FswManager.cpp
-// \author snow
+// \author laboratory10
 // \brief  cpp file for FswManager component implementation class
 // ======================================================================
 
@@ -8,7 +8,7 @@
 #include "FpConfig.hpp"
 #include <avr/pgmspace.h>
 
-//snow
+//laboratory10
 #include <Os/Log.hpp>
 
 const uint32_t checksum_table[] = {

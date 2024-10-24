@@ -1,6 +1,6 @@
 // ======================================================================
 // \title  GncManager.hpp
-// \author snow
+// \author laboratory10
 // \brief  hpp file for GncManager component implementation class
 // ======================================================================
 

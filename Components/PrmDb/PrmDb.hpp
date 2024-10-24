@@ -1,26 +1,6 @@
 // ======================================================================
 // \title  PrmDb.hpp
-// \author snow
-// \brief  hpp file for PrmDb component implementation class
-// ======================================================================
-/*
-#ifndef Components_PrmDb_HPP
-#define Components_PrmDb_HPP
-
-#include "Components/PrmDb/PrmDbImpl.hpp"
-
-namespace Components {
-
-  typedef PrmDbImpl PrmDb;
-
-}
-
-#endif
-*/
-
-// ======================================================================
-// \title  PrmDbImpl.hpp
-// \author snow
+// \author laboratory10
 // \brief  hpp file for PrmDb component implementation class
 // ======================================================================
 

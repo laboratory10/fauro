@@ -1,6 +1,6 @@
 // ======================================================================
 // \title  PrmDb.cpp
-// \author snow
+// \author laboratory10
 // \brief  cpp file for PrmDb component implementation class
 // ======================================================================
 

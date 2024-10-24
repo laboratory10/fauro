@@ -1,6 +1,6 @@
 // ======================================================================
 // \title  FauroTime.cpp
-// \author snow
+// \author laboratory10
 // \brief  cpp file for FauroTime component implementation class
 // ======================================================================
 

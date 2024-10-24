@@ -1,6 +1,6 @@
 // ======================================================================
 // \title  GncManager.cpp
-// \author snow
+// \author laboratory10
 // \brief  cpp file for GncManager component implementation class
 // ======================================================================
 
@@ -13,7 +13,7 @@
 #include <Adafruit_Sensor.h>
 #include <Wire.h>
 
-//snow
+//laboratory10
 #include <Os/Log.hpp>
 
 Adafruit_LSM6DSOX imu;

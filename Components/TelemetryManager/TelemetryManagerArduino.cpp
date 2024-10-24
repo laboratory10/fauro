@@ -1,6 +1,6 @@
 // ======================================================================
 // \title  TelemetryManagerArduino.cpp
-// \author snow
+// \author laboratory10
 // \brief  cpp file for TelemetryManager component implementation class
 // ======================================================================
 

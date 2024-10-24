@@ -1,13 +1,13 @@
 This file tracks changes required outside of the FAURO project directories in order for things to work smoothly for our specific implementation.
 
-1. /home/snow/fprime_fauro/fauro_project/fprime-arduino/Arduino/ArduinoTime/ArduinoTime.cpp
+1. If the FauroTime component isn't used.../home/laboratory10/fprime_fauro/fauro_project/fprime-arduino/Arduino/ArduinoTime/ArduinoTime.cpp
 
 Change contents of timeGetPort_handler to the following. The previous code incorrectly set usec.
 time_t sec = now();
 U32 usec = (millis() % 1000)*1000;
 time.set(sec, usec);
 
-2. /home/snow/fprime_fauro/fprime-venv/lib/python3.10/site-packages/fprime_gds/common/decoders/ch_decoder.py
+2. /home/laboratory10/fprime_fauro/fprime-venv/lib/python3.10/site-packages/fprime_gds/common/decoders/ch_decoder.py
 
 Make the following changes to allow the GDS to auto-report at the start of each boot what the unix boot time was. This can, in turn, but used with the TIME_SET command so FAURO can report correct unix time with telemetry instead of time since boot.
     a. add import time
@@ -27,8 +27,8 @@ Make the following changes to allow the GDS to auto-report at the start of each 
             self.boot_epoch_reported = True
         self.last_channel_time = time_since_boot
 
-3. Note: If you need to improve fatal logging do this in /home/snow/fprime_fauro/fauro_project/fprime/Svc/AssertFatalAdapter/AssertFatalAdapterComponentImpl.cpp
-//snow
+3. Note: If you need to improve fatal logging do this in /home/laboratory10/fprime_fauro/fauro_project/fprime/Svc/AssertFatalAdapter/AssertFatalAdapterComponentImpl.cpp
+//laboratory10
 #include <Os/Log.hpp>
 
 //in reportAssert right before the switch statement

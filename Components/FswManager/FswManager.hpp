@@ -1,6 +1,6 @@
 // ======================================================================
 // \title  FswManager.hpp
-// \author snow
+// \author laboratory10
 // \brief  hpp file for FswManager component implementation class
 // ======================================================================
 

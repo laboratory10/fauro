@@ -1,6 +1,6 @@
 // ======================================================================
 // \title  TelemetryManager.cpp
-// \author snow
+// \author laboratory10
 // \brief  cpp file for TelemetryManager component implementation class
 // ======================================================================
 
@@ -16,7 +16,7 @@
 extern RH_RF69 rf69;
 uint32_t last_groundspeak = 0;
 
-//snow
+//laboratory10
 #include <Os/Log.hpp>
 
 namespace Components {

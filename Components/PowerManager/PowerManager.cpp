@@ -1,6 +1,6 @@
 // ======================================================================
 // \title  PowerManager.cpp
-// \author snow
+// \author laboratory10
 // \brief  cpp file for PowerManager component implementation class
 // ======================================================================
 

@@ -1,6 +1,6 @@
 // ======================================================================
 // \title  TelemetryManager.hpp
-// \author snow
+// \author laboratory10
 // \brief  hpp file for TelemetryManager component implementation class
 // ======================================================================
 

@@ -1,6 +1,6 @@
 // ======================================================================
 // \title  FatalHandler.cpp
-// \author snow
+// \author laboratory10
 // \brief  cpp file for FatalHandler component implementation class
 // ======================================================================
 
