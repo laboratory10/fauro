@@ -33,7 +33,7 @@ module Components {
         telemetry SYS_MODE: Types.SYS_MODE
         telemetry RAM_AVAILABLE: I32 format "{} bytes" @< bytes
 
-        sync input port modeRequest: Ports.sysModeRequest
+        sync input port modeRequest: Ports.SysModeRequest
 
         ###############################################################################
         # Standard AC Ports: Required for Channels, Events, Commands, and Parameters  #

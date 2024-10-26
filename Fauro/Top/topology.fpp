@@ -78,6 +78,7 @@ module Fauro {
 
     connections FaultProtection {
       eventLogger.FatalAnnounce -> fatalHandler.FatalReceive
+      telemetryManager.FatalPing -> fatalHandler.FatalCheck
     }
 
     connections Downlink {

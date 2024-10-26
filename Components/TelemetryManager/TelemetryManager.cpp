@@ -11,13 +11,14 @@
 #include <TimeLib.h>
 #include <Components/FswManager/FswManager.hpp>
 
+#include <Os/Log.hpp>
 #include <Arduino.h>
 #include <RH_RF69.h>
+#include <delay.h>
+#include <wiring.h>
+#define RESET_PIN (12)
 extern RH_RF69 rf69;
 uint32_t last_groundspeak = 0;
-
-//laboratory10
-#include <Os/Log.hpp>
 
 namespace Components {
 
@@ -90,12 +91,11 @@ namespace Components {
         rf69.send(radio_msg+120, 60);
         delay(5);
     }
+    this->FatalPing_out(0);
 
     //now check to see if this should be in a telemetry log because we are in flight mode
-    //TODO real way to determine sys mode with port to fsw component
     Types::SYS_MODE mode;
     Fw::ParamValid valid;
-    //this->modeRequest_out().invoke(&mode, &valid);
     this->modeRequest_out(0, mode, valid);
 
     size_t status;

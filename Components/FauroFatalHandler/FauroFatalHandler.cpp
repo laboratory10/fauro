@@ -11,9 +11,11 @@
 
 #include <Arduino.h>
 #include <delay.h>
-#define RESET_PIN (12)
 
 namespace Components {
+
+  #define RESET_PIN (12)
+  bool response_triggered = false;
 
   // ----------------------------------------------------------------------
   // Component construction and destruction
@@ -37,19 +39,28 @@ namespace Components {
   // ----------------------------------------------------------------------
 
   void FauroFatalHandler ::
+    FatalCheck_handler(
+        NATIVE_INT_TYPE portNum
+    )
+  {
+    if (response_triggered) {
+      Os::Log::logMsg("FATAL handled.\n");
+      digitalWrite(RESET_PIN, HIGH);
+      pinMode(RESET_PIN, OUTPUT);
+      Os::Log::logMsg("Goodnight.\n");
+      delay(100);
+      digitalWrite(RESET_PIN, LOW);
+      while (true) {} // let's not make things worse by allowing execution to continue if the reset fails
+    }
+  }
+
+  void FauroFatalHandler ::
     FatalReceive_handler(
         NATIVE_INT_TYPE portNum,
         FwEventIdType Id
     )
   {
-    // for **nix, delay then exit with error code
-    Os::Log::logMsg("FATAL %d handled.\n",Id,0,0,0,0,0);
-    digitalWrite(RESET_PIN, HIGH);
-    pinMode(RESET_PIN, OUTPUT);
-    Os::Log::logMsg("Goodnight.\n",0,0,0,0,0,0);
-    delay(100);
-    digitalWrite(RESET_PIN, LOW);
-    while (true) {} // Returning might be bad
+    response_triggered = true;
   }
 
 }

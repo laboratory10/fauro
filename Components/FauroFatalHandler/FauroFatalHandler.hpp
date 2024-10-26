@@ -35,6 +35,13 @@ namespace Components {
       // Handler implementations for user-defined typed input ports
       // ----------------------------------------------------------------------
 
+      //! Handler implementation for FatalCheck
+      //!
+      //! FATAL check receive port
+      void FatalCheck_handler(
+          NATIVE_INT_TYPE portNum //!< The port number
+      ) override;
+
       //! Handler implementation for FatalReceive
       //!
       //! FATAL event receive port

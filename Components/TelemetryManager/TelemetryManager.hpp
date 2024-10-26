@@ -10,6 +10,14 @@
 #include "Components/TelemetryManager/TelemetryManagerComponentAc.hpp"
 #include <FprimeArduino.hpp>
 
+#define RADIO_CS    (6)
+#define RADIO_INT   (5)
+#define RADIO_RST   (4)
+#define LOW             (0x0)
+#define HIGH            (0x1)
+#define INPUT           (0x0)
+#define OUTPUT          (0x1)
+
 namespace Components {
 
   class TelemetryManager :

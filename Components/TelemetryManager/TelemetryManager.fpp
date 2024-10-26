@@ -7,6 +7,10 @@ module Components {
         @ Polling for receiving data
         sync input port schedIn: Svc.Sched
 
+        #@ FATAL event receive port
+        #sync input port FatalReceive: Svc.FatalEvent
+        output port FatalPing: Ports.FatalCheck
+
         @ Indicates the driver has connected to the UART device
         output port ready: Drv.ByteStreamReady
 
@@ -29,7 +33,7 @@ module Components {
         event TELEMETRY_LOG_OPEN_FAIL(filename: string size 15) severity warning low format "A new log with the name {} could not be opened"
         event TELEMETRY_LOG_CLOSED(filename: string size 15) severity activity high format "Attempting to close a log file named {}"
 
-        output port modeRequest: Ports.sysModeRequest
+        output port modeRequest: Ports.SysModeRequest
 
         ###############################################################################
         # Standard AC Ports: Required for Channels, Events, Commands, and Parameters  #

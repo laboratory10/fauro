@@ -11,13 +11,7 @@
 #include "Fw/Types/Assert.hpp"
 
 #include <RH_RF69.h>
-#define RADIO_CS    (6)
-#define RADIO_INT   (5)
-#define RADIO_RST   (4)
-#define LOW             (0x0)
-#define HIGH            (0x1)
-#define INPUT           (0x0)
-#define OUTPUT          (0x1)
+
 RH_RF69 rf69(RADIO_CS, RADIO_INT);
 
 namespace Components {
