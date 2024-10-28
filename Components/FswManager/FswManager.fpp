@@ -1,43 +1,65 @@
 module Components {
-    @ The FswManager is the component that provides Flight Software commands, telemetry, and state information.
+
+    @ FswManager provides Flight Software commands, telemetry, and state info
     passive component FswManager {
 
-        #enum SYS_MODE_ENUM {
-        #    STARTUP, @<The mode enter upon boot
-        #    FLIGHT, @<The mode intended to be used with flight
-        #    RECOVERY, @<The mode entered after a flight has concluded
-        #    TEST @<A mode for testing off-nominal situations prevented in other modes
-        #}
-
+        ########################################################################
+        # Ports                                                                #
+        ########################################################################
+        
+        @ Port for rate group scheduler to invoke
         sync input port schedIn: Svc.Sched
+        
+        @ Port for other components to request the current system mode
+        sync input port modeRequest: Ports.SysModeRequest
 
+        ########################################################################
+        # Commands                                                             #
+        ########################################################################
+
+        @Command to compute and report the image size and checksum
         guarded command FSW_IMAGE_CRC()
 
+        @Command to initiate a hardware reset
         guarded command FSW_RESET()
 
-        event FSW_IMAGE_CRC_RESULT(
-                                    $size: U32 @< Size of the image in bytes
-                                    checksum: U32 @< Checksum value
-                                  ) severity activity high format "FSW Image is {} bytes and has a checksum of 0x{x}"
-
-        event FSW_RESET_INITIATED(
-                                  ) severity fatal format "A FSW RESET has been initiated"
-
-        event FSW_SYS_MODE_CHANGED(
-                                    mode: Types.SYS_MODE @< Current system mode
-                                  ) severity activity high format "The current system mode has changed to {}"
-
+        ########################################################################
+        # Parameters                                                           #
+        ########################################################################
+        
         @ Parameter to define the current system mode
         param SYS_MODE: Types.SYS_MODE default Types.SYS_MODE.STARTUP
+
+        ########################################################################
+        # Telemetry                                                            #
+        ########################################################################
 
         telemetry SYS_MODE: Types.SYS_MODE
         telemetry RAM_AVAILABLE: I32 format "{} bytes" @< bytes
 
-        sync input port modeRequest: Ports.SysModeRequest
+        ########################################################################
+        # Events                                                               #
+        ########################################################################
 
-        ###############################################################################
-        # Standard AC Ports: Required for Channels, Events, Commands, and Parameters  #
-        ###############################################################################
+        event IMAGE_CRC_RESULT(
+            $size: U32 @< Size of the image in bytes
+            checksum: U32 @< Checksum value
+        ) severity activity high format \
+        "FSW Image is {} bytes with checksum 0x{x}"
+
+        event RESET_INITIATED() severity fatal format \
+        "A FSW RESET has been initiated"
+
+        event SYS_MODE_CHANGED(
+            mode: Types.SYS_MODE @< Current system mode
+        ) severity activity high format \
+        "The current system mode has changed to {}"
+
+
+        ########################################################################
+        # Standard Ports: Channels, Events, Commands, and Parameters           #
+        ########################################################################
+        
         @ Port for requesting the current time
         time get port timeCaller
 

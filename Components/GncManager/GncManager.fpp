@@ -1,12 +1,26 @@
 module Components {
-    @ Only component allowed to read/write from the I2C bus and the one tasked with updating GNC telemetry and commanding
+    @ Manages GNC commands and telemetry and sole allowable user of I2C bus.
     passive component GncManager {
 
+        ########################################################################
+        # Ports                                                                #
+        ########################################################################
+
+        @ Port for rate group scheduler to invoke
         sync input port gncUpdate: Svc.Sched
 
-        event GNC_ALTIMETER_SETTING_CHANGED(
-                                    altimetere_setting: F64 @< Current altimeter setting
-                                  ) severity activity high format "The current altimeter setting has changed to {}"
+        ########################################################################
+        # Parameters                                                           #
+        ########################################################################
+
+        @ Parameter to define the current altimeter setting
+        param ALTIMETER_SETTING: F64 default 1013.2075
+
+        ########################################################################
+        # Telemetry                                                            #
+        ########################################################################
+
+        telemetry ALTIMETER_SETTING: F64 format "{.2f} hPA" @< hPA
 
         telemetry ACCEL_X: F32 format "{.2f} G" @< Earth G
         telemetry ACCEL_Y: F32 format "{.2f} G" @< Earth G
@@ -34,13 +48,19 @@ module Components {
         telemetry BAROMETRIC_TEMP: I32 format "{} degrees C" @< degrees C
         telemetry BAROMETRIC_PRESSURE: F32 format "{.2f} hPA" @< hPA
 
-        @ Parameter to define the current altimeter setting
-        param ALTIMETER_SETTING: F64 default 1013.2075
-        telemetry ALTIMETER_SETTING: F64 format "{.2f} hPA" @< hPA
+        ########################################################################
+        # Events                                                               #
+        ########################################################################
 
-        ###############################################################################
-        # Standard AC Ports: Required for Channels, Events, Commands, and Parameters  #
-        ###############################################################################
+        event ALTIMETER_CHANGED (
+            alt_setting: F64 @< Current altimeter setting
+        ) severity activity high format \
+        "The current altimeter setting has changed to {} hPA"
+
+        ########################################################################
+        # Standard Ports: Channels, Events, Commands, and Parameters           #
+        ########################################################################
+        
         @ Port for requesting the current time
         time get port timeCaller
 

@@ -91,7 +91,7 @@ namespace Components {
         rf69.send(radio_msg+120, 60);
         delay(5);
     }
-    this->FatalPing_out(0);
+    this->fatalPing_out(0);
 
     //now check to see if this should be in a telemetry log because we are in flight mode
     Types::SYS_MODE mode;

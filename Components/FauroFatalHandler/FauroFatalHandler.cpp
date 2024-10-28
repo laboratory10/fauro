@@ -39,7 +39,7 @@ namespace Components {
   // ----------------------------------------------------------------------
 
   void FauroFatalHandler ::
-    FatalCheck_handler(
+    fatalCheck_handler(
         NATIVE_INT_TYPE portNum
     )
   {
@@ -55,7 +55,7 @@ namespace Components {
   }
 
   void FauroFatalHandler ::
-    FatalReceive_handler(
+    fatalReceive_handler(
         NATIVE_INT_TYPE portNum,
         FwEventIdType Id
     )

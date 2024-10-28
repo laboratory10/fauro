@@ -38,14 +38,14 @@ namespace Components {
       //! Handler implementation for FatalCheck
       //!
       //! FATAL check receive port
-      void FatalCheck_handler(
+      void fatalCheck_handler(
           NATIVE_INT_TYPE portNum //!< The port number
       ) override;
 
       //! Handler implementation for FatalReceive
       //!
       //! FATAL event receive port
-      void FatalReceive_handler(
+      void fatalReceive_handler(
           NATIVE_INT_TYPE portNum, //!< The port number
           FwEventIdType Id //!< The ID of the FATAL event
       ) override;

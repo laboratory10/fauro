@@ -1,13 +1,17 @@
 module Components {
 
-  @ Handles FATAL calls
-  passive component FauroFatalHandler {
+    @ Handles FATAL calls
+    passive component FauroFatalHandler {
 
-    @ FATAL event receive port
-    sync input port FatalReceive: Svc.FatalEvent
+        ########################################################################
+        # Ports                                                                #
+        ########################################################################
 
-    @ FATAL check receive port
-    sync input port FatalCheck: Ports.FatalCheck
+        @ FATAL event receive port
+        sync input port fatalReceive: Svc.FatalEvent
+
+        @ FATAL check receive port
+        sync input port fatalCheck: Ports.FatalCheck
   
   }
 

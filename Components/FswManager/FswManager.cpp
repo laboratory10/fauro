@@ -149,7 +149,7 @@ namespace Components {
       }
     }
     checksum ^= 0xffffffff;
-    this->log_ACTIVITY_HI_FSW_IMAGE_CRC_RESULT(current_byte_count, checksum);
+    this->log_ACTIVITY_HI_IMAGE_CRC_RESULT(current_byte_count, checksum);
     this->cmdResponse_out(opCode, cmdSeq, Fw::CmdResponse::OK);
   }
 
@@ -159,7 +159,7 @@ namespace Components {
         U32 cmdSeq
     )
   {
-    this->log_FATAL_FSW_RESET_INITIATED();
+    this->log_FATAL_RESET_INITIATED();
     this->cmdResponse_out(opCode, cmdSeq, Fw::CmdResponse::OK);
   }
 
@@ -173,7 +173,7 @@ namespace Components {
 
     // Check the parameter ID is expected
     if (PARAMID_SYS_MODE == id) {
-      this->log_ACTIVITY_HI_FSW_SYS_MODE_CHANGED(mode);
+      this->log_ACTIVITY_HI_SYS_MODE_CHANGED(mode);
       this->tlmWrite_SYS_MODE(mode);
     }
     

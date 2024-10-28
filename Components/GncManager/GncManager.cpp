@@ -168,7 +168,7 @@ namespace Components {
 
     // Check the parameter ID is expected
     if (PARAMID_ALTIMETER_SETTING == id) {
-      this->log_ACTIVITY_HI_GNC_ALTIMETER_SETTING_CHANGED(altimeter_setting);
+      this->log_ACTIVITY_HI_ALTIMETER_CHANGED(altimeter_setting);
       this->tlmWrite_ALTIMETER_SETTING(altimeter_setting);
     }
     

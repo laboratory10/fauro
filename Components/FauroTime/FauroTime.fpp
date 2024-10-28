@@ -2,16 +2,31 @@ module Components {
     @ Component that controls and configures the FAURO clock
     passive component FauroTime {
 
-        @ Port to retrieve time
+        ########################################################################
+        # Ports                                                                #
+        ########################################################################
+
+        @ Port for other components to retrieve time
         sync input port timeGetPort: Fw.Time
 
+        ########################################################################
+        # Commands                                                             #
+        ########################################################################
+
+        @Command to sync boot time with time since unix epoch
         guarded command TIME_SET(epoch_offset_seconds: U32)
 
-        event TIME_FROM_EPOCH_SET() severity activity high format "FAURO's clock has been updated to have knowledge of time since the unix epoch"
+        ########################################################################
+        # Events                                                               #
+        ########################################################################
 
-        ###############################################################################
-        # Standard AC Ports: Required for Channels, Events, Commands, and Parameters  #
-        ###############################################################################
+        event TIME_FROM_EPOCH_SET() severity activity high format \
+        "FAUROs clock is updated to have knowledge of time since the unix epoch"
+
+        ########################################################################
+        # Standard Ports: Channels, Events, Commands, and Parameters           #
+        ########################################################################
+        
         @ Port for requesting the current time
         time get port timeCaller
 
