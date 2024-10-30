@@ -212,7 +212,7 @@ namespace Components {
     if (isValid) {
       this->tlmWrite_SYS_MODE(mode);
     } else {
-      //TODO warning EVR
+      this->log_WARNING_LO_SYS_MODE_CHECK_FAILED(mode, isValid);
     }
 
     this->tlmWrite_RAM_AVAILABLE(ram_available());

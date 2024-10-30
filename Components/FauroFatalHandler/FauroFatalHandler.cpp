@@ -8,7 +8,6 @@
 #include <Os/Log.hpp>
 #include "Components/FauroFatalHandler/FauroFatalHandler.hpp"
 #include "FpConfig.hpp"
-
 #include <Arduino.h>
 #include <delay.h>
 
@@ -50,7 +49,7 @@ namespace Components {
       Os::Log::logMsg("Goodnight.\n");
       delay(100);
       digitalWrite(RESET_PIN, LOW);
-      while (true) {} // let's not make things worse by allowing execution to continue if the reset fails
+      while (true) {} // prevent execution from continuing if the reset fails
     }
   }
 

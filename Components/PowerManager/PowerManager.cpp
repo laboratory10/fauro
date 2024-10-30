@@ -6,13 +6,12 @@
 
 #include "Components/PowerManager/PowerManager.hpp"
 #include "FpConfig.hpp"
-
 #include <variant.h>
 #include <Arduino.h>
 
-#define VBATPIN (A7)
-
 namespace Components {
+
+  #define VBATPIN (A7)
 
   // ----------------------------------------------------------------------
   // Component construction and destruction
@@ -41,6 +40,7 @@ namespace Components {
         NATIVE_UINT_TYPE context
     )
   {
+    //VBATPIN*2 cells*3.3V reference/1024 to convert to Volts = battery voltage
     this->tlmWrite_BAT_VOLTAGE((float) (analogRead(VBATPIN)*2*3.3/1024));
   }
 

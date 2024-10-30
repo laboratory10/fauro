@@ -57,6 +57,21 @@ module Components {
         ) severity activity high format \
         "The current altimeter setting has changed to {} hPA"
 
+        event ALTIMETER_SETTING_INVALID (
+            alt_setting: F64 @< Altimeter setting retrieved
+            alt_Setting_valid: Fw.ParamValid @< Validity of altimeter setting
+        ) severity warning high format \
+        "Could not properly retrieve altimeter setting. Value:{} / Valid: {}"
+
+        event BMP_READING_FAILED() severity warning low format \
+        "A problem occured while reading the barometric pressure sensor."
+
+        event IMU_READING_FAILED() severity warning low format \
+        "A problem occured while reading the IMU."
+
+        event MAG_READING_FAILED() severity warning low format \
+        "A problem occured while reading the magnetometer."
+
         ########################################################################
         # Standard Ports: Channels, Events, Commands, and Parameters           #
         ########################################################################

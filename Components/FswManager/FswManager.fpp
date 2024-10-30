@@ -55,6 +55,11 @@ module Components {
         ) severity activity high format \
         "The current system mode has changed to {}"
 
+        event SYS_MODE_CHECK_FAILED(
+            mode: Types.SYS_MODE @< Value returned for sys mode
+            valid: Fw.ParamValid @< validity returned
+        ) severity warning low format \
+        "SYS_MODE requested for telemetry invalid. Value:{} / Validity:{}"
 
         ########################################################################
         # Standard Ports: Channels, Events, Commands, and Parameters           #

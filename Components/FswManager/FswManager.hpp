@@ -39,7 +39,7 @@ namespace Components {
       void modeRequest_handler(
           NATIVE_INT_TYPE portNum, //!< The port number
           Types::SYS_MODE& mode, //!< a place to put the current system mode
-          Fw::ParamValid& valid //!< a place to indicate whether the parameter value is valid
+          Fw::ParamValid& valid //!< indicate if the parameter value is valid
       ) override;
 
       void schedIn_handler(

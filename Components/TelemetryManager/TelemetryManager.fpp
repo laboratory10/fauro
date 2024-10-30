@@ -44,13 +44,20 @@ module Components {
         severity activity high format \
         "A new log file was opened with a name: {}"
         
-        event TELEMETRY_LOG_OPEN_FAIL(filename: string size 15) \
+        event TELEMETRY_LOG_OPEN_FAILED(filename: string size 15) \
         severity warning low format \
         "A new log with the name {} could not be opened"
         
         event TELEMETRY_LOG_CLOSED(filename: string size 15) \
         severity activity high format \
         "Attempting to close a log file named {}"
+
+        event INIT_LOG_INDEX_FAILED() severity warning high format \
+        "An attempt to initialize a the log index file failed while opening."
+
+        event UPDATE_LOG_INDEX_FAILED(filename: string size 15) \
+        severity warning high format \
+        "An attempt to update the last log index failed while upening {}"
 
 
         ########################################################################
