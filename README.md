@@ -42,7 +42,7 @@ This project is made up of four distinct systems. When referred to all together,
 3. The Ground System
     - For this project, the <a href=https://nasa.github.io/fprime/UsersGuide/gds/gds-introduction.html">F' GDS</a> that ships with F' will be used.
    
-4. The Launch Station (/auro/launch_station/)
+4. The Launch Station
     - A device that energizes the launch circuit when commanded to ignite the rocket motor
     - Hardware consists of:
         - 3.7v 500mAh Lithium Ion Polymer Battery
@@ -89,13 +89,10 @@ TO BE COMPLETED
 ### Section 2.4: Use of the SPI and I2C Buses
 TO BE COMPLETED
 
-### Section 2.5: Telemetry Types
-A key set of concepts that is important to understand for this project is how telemetry is organized. In fitting with the objectives of this project, data reported from AURO will look similar to how spacecraft telemetry is structured in industry. Messages sent from AURO to the ground can be one of two types: Event Telemetry (abbreviated to ETL) and Channelized Telemetry (abbreviated to CTL). ETLs can be thought of as a comprehensive system log. In the log, there are a number of entries with a timestamp that note the occurrence of a significant event. This is very similar to the Windows Event Viewer data, to give a parallel to non-spacecraft computing. Also like the Event Viewer, ETLs are each associated with a particular level to describe the type or criticality of the information they contain. At writing, possible ETL levels are RECORD, NOTICE, COMMAND, ALERT, CRITICAL, and LAUNCH. The `enums.h` file has more information about what each level means. In contrast to events, CTLs report specific values of interest at regular intervals that might change over time. An example would be a temperature sensor value. We want to be updated on what the latest readings look like and how it changes over time, but this information isn't necessarily associated with an event.
-
-### Section 2.6: Coding Conventions and Standards
+### Section 2.5: Coding Conventions and Standards
 TO BE COMPLETED
 
-While those FAURO-specific conventions are more aesthetic in nature, external standards are also in effect to make the code more reliable and fault tolerant. In 2009, NASA's Jet Propulsion Laboratory published the <a href=https://web.archive.org/web/20111015064908/http://lars-lab.jpl.nasa.gov/JPL_Coding_Standard_C.pdf>JPL Institutional Coding Standard for the C Programming Language</a>. As this standard aligns nicely with the objectives for this project, it was consulted extensively to improve AURO's FSW.
+While those FAURO-specific conventions are more aesthetic in nature, external standards are also in effect to make the code more reliable and fault tolerant. In 2009, NASA's Jet Propulsion Laboratory published the <a href=https://web.archive.org/web/20111015064908/http://lars-lab.jpl.nasa.gov/JPL_Coding_Standard_C.pdf>JPL Institutional Coding Standard for the C Programming Language</a>. As this standard aligns nicely with the objectives for this project, it was consulted extensively to improve FAURO's FSW.
 
 ### Section 3: Testing
 TO BE COMPLETED
@@ -115,7 +112,7 @@ TO BE COMPLETED
 
 ## Section 5: Hardware Integration
 ### Section 5.1: Purchased Parts List
-- AURO
+- FAURO
     - <a href="https://www.adafruit.com/product/2796">Adafruit Feather M0 Adalogger</a>
     - <a href="https://www.adafruit.com/product/3229">Adafruit Radio FeatherWing - RFM69HCW 900MHz - RadioFruit</a> (includes male headers)
     - <a href="https://www.adafruit.com/product/1578">Lithium Ion Polymer Battery - 3.7v 500mAh </a>
@@ -152,8 +149,8 @@ TO BE COMPLETED
     - <a href="https://www.amazon.com/gp/product/B0BK1CD467/ref=ppx_yo_dt_b_asin_title_o07_s02?ie=UTF8&psc=1">YOKIVE 150 Pcs M2.5 Standoff Screws</a>
     - <a href="https://www.amazon.com/gp/product/B07SPWZT5G/ref=ppx_yo_dt_b_asin_title_o06_s00?ie=UTF8&psc=1">100pcs M2.5 Thread Brass Knurled Threaded Insert Embedment Nuts</a>
 - 3D PRINTED PARTS (Avionics and Ground Equipment Boxes)
-    - see stl files in `/auro/cad_objects/` for:
-        - AURO Parts
+    - see stl files in AURO repository for:
+        - FAURO Parts
             - Battery Enclosure
             - Fixed Avionics Bay
             - Removable Avionics Bay
@@ -165,7 +162,7 @@ TO BE COMPLETED
             - Launch Station Main Top
             - Launch Station Antenna Top
 
-### Section 5.3: AURO Integration
+### Section 5.3: FAURO Integration
 1. Melt embedment nuts into 6 holes on the Fixed Avionics Bay using soldering iron
 2. Melt embedment nuts into 2 holes on the side of the Removable Avionics Bay where the Battery Enclosure screws enter
 3. Melt embedment nuts into 4 holes on the side of the Removable Avionics Bay where the board mounts
@@ -187,8 +184,8 @@ TO BE COMPLETED
 19. Use the two STEMMA QT cables to connect the IMU and GPS and the GPS and BMP
 20. Thread the battery cable through the opening, place the battery in the appropriate position, and attach the battery enclosure with screws
 21. As desired, finish assembly by plugging in the battery, adding the SD card, and connecting the Removable and Fixed Avionics Bays
-<br><br>***The integrated AURO system***
-<br><img src="./assets/AURO_complete.jpg" width="350">&nbsp;&nbsp;<img src="./assets/AURO_partially_disassembled.jpg" width="350"><br>
+<br><br>***The integrated FAURO system***
+<br><img src="./assets/FAURO_complete.jpg" width="350">&nbsp;&nbsp;<img src="./assets/FAURO_partially_disassembled.jpg" width="350"><br>
 <br>
 
 ### Section 5.4: Base Station Integration
