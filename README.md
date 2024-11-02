@@ -40,7 +40,7 @@ This project is made up of four distinct systems. When referred to all together,
     <br><img src="./assets/base_station_complete.jpg" width="700"><br>
     <br>
 3. The Ground System
-    - For this project, the <a href=https://nasa.github.io/fprime/UsersGuide/gds/gds-introduction.html">F' GDS</a> that ships with F' will be used.
+    - For this project, the <a href="https://nasa.github.io/fprime/UsersGuide/gds/gds-introduction.html">F' GDS</a> that ships with F' will be used.
    
 4. The Launch Station
     - A device that energizes the launch circuit when commanded to ignite the rocket motor
@@ -61,8 +61,9 @@ This project is made up of four distinct systems. When referred to all together,
 ## Section 2: Flight Software Architecture
 
 ### Section 2.1: FAURO's FSW Architecture OVerview
+While those FAURO-specific conventions are more aesthetic in nature, external standards are also in effect to make the code more reliable and fault tolerant. In 2009, NASA's Jet Propulsion Laboratory published the <a href=https://web.archive.org/web/20111015064908/http://lars-lab.jpl.nasa.gov/JPL_Coding_Standard_C.pdf>JPL Institutional Coding Standard for the C Programming Language</a>. As this standard aligns nicely with the objectives for this project, it was consulted extensively to improve FAURO's FSW.
 
-### Section 2.2: Board Support Packages, Device Drivers, Libraries, and Includes
+### Section 2.2: Board Support Packages, Device Drivers, and Libraries
 In order for everything to work properly, the following board support packages and libraries must be installed:
 
 - Board Support Package:
@@ -83,17 +84,6 @@ In order for everything to work properly, the following board support packages a
 - GPS Sensor:
     - <a href="https://github.com/adafruit/Adafruit_GPS">Adafruit_GPS</a> by Adafruit
 
-### Section 2.3: FSW Modules and Tasks
-TO BE COMPLETED
-
-### Section 2.4: Use of the SPI and I2C Buses
-TO BE COMPLETED
-
-### Section 2.5: Coding Conventions and Standards
-TO BE COMPLETED
-
-While those FAURO-specific conventions are more aesthetic in nature, external standards are also in effect to make the code more reliable and fault tolerant. In 2009, NASA's Jet Propulsion Laboratory published the <a href=https://web.archive.org/web/20111015064908/http://lars-lab.jpl.nasa.gov/JPL_Coding_Standard_C.pdf>JPL Institutional Coding Standard for the C Programming Language</a>. As this standard aligns nicely with the objectives for this project, it was consulted extensively to improve FAURO's FSW.
-
 ### Section 3: Testing
 TO BE COMPLETED
 
@@ -103,10 +93,19 @@ TO BE COMPLETED
 The Ground Segment comprises the Base Station, Launch Station, and Ground System.
 
 ### Section 4.1: Embedded Base Station and Launch Station Code
-TO BE COMPLETED
+Code for the Base Station can be found in the top level project directory. It is designed to be lightweight and simple since the task it performs is simple. The Base Station:
+- receives any data transmitted on the radio for relay back to the host computer so it can be displayed with the Ground System
+- sends FSW commands from the operator to AURO
+
+Code for the Launch Station can is not yet implemented for FAURO. In AURO, its purpose was also simple so the code will be lightweight. The launch station:
+- listens on the radio link for one of the few FSW commands from the Base Station that requires it to act
+- takes the commanded action (namely energize a non-latching relay to complete the launch circuit and ignite the rocket motor)
+- report with LAUNCH level EVRs the launch station's actions
+
+For both the Base Station and Launch Station, transmission on the radio link is only allowed if AURO cedes transmission rights by initiating a Groundspeak session. FAURO does this by transmitting a special packet to indicate some other system may transmit for a short time. The Ground System implements logic that deconflicts usage of the Groundspeak session between the Base Station and Launch Station by disabling user transmission of FSW commands for a short time.
 
 ### Section 4.2: Use of the F' GDS
-TO BE COMPLETED
+While the aURO project had a custom-made GDS, building that was mostly done out of necessity. Since the main purpose of this series of projects is to develop FSW expertise, the fact that F' ships with a a basic ground system was helpful and allowed greater focus on the FSW. FAURO works nicely with the F' GDS out of the box, but one small modification was made to display the unix epoch offset in seconds in the terminal each time FAURO reset. This allows the operator to use the `TIME_FROM_EPOCH_SET`command so the GDS-reported time for telemetry matches the actual time.
 
 
 
@@ -234,4 +233,24 @@ TO BE COMPLETED - procedure for how this project was setup from scratch
 
 
 ## Section 8: Operations
-TO BE COMPLETED - procedure for building new image, flashing the image to the target, and launching the GDS
+1. Force the Feather M0 to enter programming mode by doing EITHER:
+    - Double tap the physical reset button on the microcontroller
+    - Using vscode serial monitor, open a connection to the board with a 1200 baud rate then immediately close it. Once programming mode is entered, it is recommended to switch the baud to 115200 immediately to prevent an inadvertent entry into programming mode.
+2. Using the windows explorer GUI, copy the fauro_deployment.bin binary from the WSL filesystem into one directly accessible by Windows. The “Documents” folder will be used here and referenced later on during the command to flash the image.
+3. Confirm the adafruit libraries required for the FeatherM0 are installed in Windows using the Arduino IDE (adafruit and arduino M0/SAMD packages)
+4. Note the complete file path of the Windows copy of the binary and the COM port for use in the command below. The following powershell command may be used to ascertain the correct COM port:
+    - `usbipd list`
+5. Flash the image using the following Powershell command:
+    - `C:\Users\snowicane\AppData\Local\Arduino15\packages\adafruit\tools\bossac\1.8.0-48-gb176eee/bossac.exe -i -d --port=COM22 -U -i --offset=0x2000 -w -v C:\Users\snowicane\Documents\Fauro.bin -R`
+6. Once flashing completes, the serial monitor of vscode can be used to confirm the target is active and printint things over the serial connection
+7. Bind and attach the base station or target device to WSL so the serial data can be fed to the GDS. Note, if you wish to bind to the target device directly the serial connection opened in step 6 must first be closed. The following powershell command can be used with the appropriate busid from the usbipd command above:
+    - `usbipd bind --busid 1-10`
+    - `usbipd attach --wsl --busid 1-10`
+    - Note that usually the bind command is only required once even if the board is disconnected and reconnected
+    - Note that the command to detach a port is:
+        - `usbipd detach --busid 1-10`
+8. On the linux side, the following two commands can be used to see the attached COM port was successful:
+    - `lsusb`
+    - `ls /dev/tty*`  (will usually be attached as ttyACM0)
+9. Run the GDS with the following linux command:
+    - `fprime-gds -n --dictionary ./build-artifacts/featherM0/Fauro/dict/FauroTopologyAppDictionary.xml --comm-adapter uart --uart-device /dev/ttyACM0 --uart-baud 115200

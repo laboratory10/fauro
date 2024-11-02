@@ -13,7 +13,7 @@ Make the following changes to allow the GDS to auto-report at the start of each 
     a. add import time
     b. add the attributes self.boot_epoch_reported = False and self.last_channel_time = 0 in class init function
     c. add the following code block inside the while loop of the decode_api function after the line "ch_list.append(ChData(val_obj, ch_time, ch_temp))"
-        raw_time = ch_list[-1].get_time()
+        raw_time = str(ch_list[-1].get_time())
         raw_time = raw_time[raw_time.find("-")+1:]
         raw_time = raw_time[:raw_time.find(")")]
         time_since_boot = raw_time.replace(":", ".")
