@@ -254,3 +254,8 @@ TO BE COMPLETED - procedure for how this project was setup from scratch
     - `ls /dev/tty*`  (will usually be attached as ttyACM0)
 9. Run the GDS with the following linux command:
     - `fprime-gds -n --dictionary ./build-artifacts/featherM0/Fauro/dict/FauroTopologyAppDictionary.xml --comm-adapter uart --uart-device /dev/ttyACM0 --uart-baud 115200
+
+<br><br>***FAURO demo video***
+<br>
+https://youtu.be/RNxwbEgiWnk
+<br>
