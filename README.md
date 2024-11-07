@@ -84,8 +84,10 @@ In order for everything to work properly, the following board support packages a
 - GPS Sensor:
     - <a href="https://github.com/adafruit/Adafruit_GPS">Adafruit_GPS</a> by Adafruit
 
+
+
 ### Section 3: Testing
-TO BE COMPLETED
+While extensive unit testing and Hardware in the loop testing is not yet implemented, basic examples of this functionality exist for the FswManager component. The build files can be generated with the command `fprime-util generate --ut`, compiled with the command `fprime-util build --ut`, and run with the command `fprime-util check`.
 
 
 
