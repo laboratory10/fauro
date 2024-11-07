@@ -26,6 +26,10 @@ include_directories(
     ${ARDUINO_SAMD_LIB_PATH}/Adafruit_ZeroDMA
 )
 
+if(FPRIME_ARDUINO)
+    add_compile_definitions(FPRIME_ARDUINO)
+endif()
+
 ###
 # F' Core Setup
 # This includes all of the F prime core components, and imports the make-system.

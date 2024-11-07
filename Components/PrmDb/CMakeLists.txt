@@ -11,15 +11,8 @@ set(SOURCE_FILES
   "${CMAKE_CURRENT_LIST_DIR}/PrmDb.cpp"
 )
 
-target_use_arduino_libraries("SD")
+if(FPRIME_ARDUINO)
+    target_use_arduino_libraries("SD")
+endif()
 
 register_fprime_module()
-
-### UTs ###
-set(UT_MOD_DEPS
-    Os_Stubs
-)
-set(UT_SOURCE_FILES
-  "${FPRIME_FRAMEWORK_PATH}/Svc/PrmDb/PrmDb.fpp"
-)
-register_fprime_ut()

@@ -22,10 +22,9 @@ set(MOD_DEPS
 
 if(FPRIME_ARDUINO)
     list(APPEND SOURCE_FILES "${CMAKE_CURRENT_LIST_DIR}/TelemetryManagerArduino.cpp")
+    target_use_arduino_libraries("RadioHead")
 else()
     list(APPEND SOURCE_FILES "${CMAKE_CURRENT_LIST_DIR}/TelemetryManagerLinux.cpp")
 endif()
-
-target_use_arduino_libraries("RadioHead")
 
 register_fprime_module()
